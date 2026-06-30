@@ -1,113 +1,603 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>人生决策系统 v5.1</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<style>
-body{font-family:-apple-system;background:#f5f5f5;padding:16px;}
-h1{font-size:22px;}
-.card{background:white;padding:12px;margin:10px 0;border-radius:12px;}
-textarea,input{width:100%;padding:8px;margin:6px 0;}
-button{width:100%;padding:10px;margin-top:8px;background:#007AFF;color:white;border:none;border-radius:10px;}
-pre{white-space:pre-wrap;}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>每日决策</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: linear-gradient(180deg, #fff8df 0%, #fffdf4 28%, #f8fbff 100%);
+      color: #2b2b2b;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 16px 14px 40px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #ffd86f, #ffb347, #ffdc73);
+      border-radius: 24px;
+      padding: 24px 20px 18px;
+      color: #5a3b00;
+      box-shadow: 0 12px 28px rgba(255, 191, 73, 0.28);
+      margin-bottom: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -30px;
+      width: 140px;
+      height: 140px;
+      background: rgba(255,255,255,0.22);
+      border-radius: 50%;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 800;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero p {
+      margin: 8px 0 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #6d4b00;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tip-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tip-badge {
+      background: rgba(255,255,255,0.45);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: #6b4a00;
+      font-weight: 600;
+    }
+
+    .card {
+      background: #ffffffcc;
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      padding: 16px;
+      margin-top: 14px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+      border: 1px solid rgba(255,255,255,0.7);
+    }
+
+    .card h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin: 14px 0 10px;
+      color: #555;
+    }
+
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .chip {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: #f3f6fb;
+      color: #444;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .chip.active {
+      background: linear-gradient(135deg, #ffcf5c, #ffb347);
+      color: #5b3900;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(255, 179, 71, 0.28);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 82px;
+      padding: 12px;
+      border: 1px solid #e6eaf2;
+      border-radius: 14px;
+      resize: vertical;
+      font-size: 14px;
+      outline: none;
+      background: #fff;
+    }
+
+    textarea:focus {
+      border-color: #ffbf47;
+      box-shadow: 0 0 0 3px rgba(255,191,71,0.15);
+    }
+
+    .button-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 14px;
+      padding: 13px 14px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ffbe3b, #ff9f43);
+      color: #5c3900;
+      box-shadow: 0 8px 18px rgba(255, 175, 64, 0.26);
+    }
+
+    .btn-secondary {
+      background: #eef4ff;
+      color: #35507a;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .small-text {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #6c7280;
+      line-height: 1.5;
+    }
+
+    pre.output {
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: #fffdf8;
+      border: 1px solid #f4ead5;
+      border-radius: 16px;
+      padding: 14px;
+      min-height: 120px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #3a3a3a;
+    }
+
+    canvas {
+      width: 100% !important;
+      max-height: 280px;
+      margin-top: 8px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 8px;
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 12px;
+      color: #8a8f99;
+    }
+
+    @media (max-width: 520px) {
+      .button-row {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="container">
+    <div class="hero">
+      <h1>☀️ 每日决策</h1>
+      <p>每天花 1 分钟，记录学习、投资和状态。让自己少一点混乱，多一点清晰。</p>
+      <div class="tip-row">
+        <div class="tip-badge">轻记录</div>
+        <div class="tip-badge">智能复盘</div>
+        <div class="tip-badge">趋势追踪</div>
+      </div>
+    </div>
 
-<h1>📊 人生决策系统 v5.1</h1>
+    <div class="card">
+      <h2>📌 今日记录</h2>
 
-<div class="card">
-<h3>📚 今日学习</h3>
-<textarea id="study"></textarea>
-</div>
+      <div class="section-title">📚 学习状态</div>
+      <div class="chip-group" id="studyStatusGroup">
+        <button class="chip" onclick="setChoice('studyStatus','高效完成', this)">高效完成</button>
+        <button class="chip" onclick="setChoice('studyStatus','完成部分', this)">完成部分</button>
+        <button class="chip" onclick="setChoice('studyStatus','只看没练', this)">只看没练</button>
+        <button class="chip" onclick="setChoice('studyStatus','未开始', this)">未开始</button>
+      </div>
 
-<div class="card">
-<h3>💰 投资记录</h3>
-<textarea id="invest"></textarea>
-</div>
+      <div class="section-title">💰 投资操作</div>
+      <div class="chip-group" id="investActionGroup">
+        <button class="chip" onclick="setChoice('investAction','买入', this)">买入</button>
+        <button class="chip" onclick="setChoice('investAction','卖出', this)">卖出</button>
+        <button class="chip" onclick="setChoice('investAction','加仓', this)">加仓</button>
+        <button class="chip" onclick="setChoice('investAction','减仓', this)">减仓</button>
+        <button class="chip" onclick="setChoice('investAction','观望', this)">观望</button>
+        <button class="chip" onclick="setChoice('investAction','无操作', this)">无操作</button>
+      </div>
 
-<div class="card">
-<h3>⚡ 状态</h3>
-<input id="energy" placeholder="精力 1-10">
-<input id="sleep" placeholder="睡眠（好/一般/差）">
-</div>
+      <div class="section-title">😴 睡眠状态</div>
+      <div class="chip-group" id="sleepGroup">
+        <button class="chip" onclick="setChoice('sleep','好', this)">好</button>
+        <button class="chip" onclick="setChoice('sleep','一般', this)">一般</button>
+        <button class="chip" onclick="setChoice('sleep','差', this)">差</button>
+      </div>
 
-<button onclick="save()">保存今日</button>
-<button onclick="show()">查看最近7天</button>
-<button onclick="report()">生成复盘</button>
+      <div class="section-title">⚡ 精力水平</div>
+      <div class="chip-group" id="energyGroup">
+        <button class="chip" onclick="setChoice('energy','1', this)">1</button>
+        <button class="chip" onclick="setChoice('energy','2', this)">2</button>
+        <button class="chip" onclick="setChoice('energy','3', this)">3</button>
+        <button class="chip" onclick="setChoice('energy','4', this)">4</button>
+        <button class="chip" onclick="setChoice('energy','5', this)">5</button>
+        <button class="chip" onclick="setChoice('energy','6', this)">6</button>
+        <button class="chip" onclick="setChoice('energy','7', this)">7</button>
+        <button class="chip" onclick="setChoice('energy','8', this)">8</button>
+        <button class="chip" onclick="setChoice('energy','9', this)">9</button>
+        <button class="chip" onclick="setChoice('energy','10', this)">10</button>
+      </div>
 
-<div class="card">
-<h3>📈 输出</h3>
-<pre id="out"></pre>
-</div>
+      <div class="section-title">😊 今日心情</div>
+      <div class="chip-group" id="moodGroup">
+        <button class="chip" onclick="setChoice('mood','平静', this)">平静</button>
+        <button class="chip" onclick="setChoice('mood','积极', this)">积极</button>
+        <button class="chip" onclick="setChoice('mood','焦虑', this)">焦虑</button>
+        <button class="chip" onclick="setChoice('mood','疲惫', this)">疲惫</button>
+        <button class="chip" onclick="setChoice('mood','烦躁', this)">烦躁</button>
+      </div>
 
-<canvas id="c1"></canvas>
-<canvas id="c2"></canvas>
+      <div class="section-title">📝 学习补充（可不填）</div>
+      <textarea id="studyNote" placeholder="例如：刷了10道言语，背了30个雅思单词"></textarea>
 
-<script>
-function get(){
-  return JSON.parse(localStorage.getItem("v51")||"[]");
-}
+      <div class="section-title">📝 投资补充（可不填）</div>
+      <textarea id="investNote" placeholder="例如：今天主要观望科技，没追高"></textarea>
 
-function save(){
-  let d=get();
-  d.push({
-    t:new Date().toLocaleDateString(),
-    study:study.value,
-    invest:invest.value,
-    energy:+energy.value||0,
-    sleep:sleep.value
-  });
-  localStorage.setItem("v51",JSON.stringify(d));
-  alert("已保存");
-  draw();
-}
+      <div class="section-title">📝 其他备注（可不填）</div>
+      <textarea id="otherNote" placeholder="例如：午睡后很昏沉，晚上状态一般"></textarea>
 
-function show(){
-  let d=get().slice(-7).reverse();
-  out.innerText=d.map(x=>
-`📅 ${x.t}
-📚 ${x.study}
-💰 ${x.invest}
-⚡ ${x.energy} 睡眠:${x.sleep}`
-).join("\n------\n");
-}
+      <div class="button-row">
+        <button class="btn btn-primary" onclick="saveRecord()">保存今天</button>
+        <button class="btn btn-secondary" onclick="showRecent()">最近7天</button>
+        <button class="btn btn-primary" onclick="smartReview()">智能复盘</button>
+        <button class="btn btn-secondary" onclick="clearToday()">清空当前</button>
+      </div>
 
-function report(){
-  let d=get();
-  if(!d.length){out.innerText="暂无数据";return;}
+      <div class="small-text">
+        数据保存在浏览器本地。若你后续想做真正云同步版，我再带你继续升。
+      </div>
+    </div>
 
-  let avg=d.reduce((a,b)=>a+(b.energy||0),0)/d.length;
+    <div class="card">
+      <h2>🤖 智能输出</h2>
+      <pre class="output" id="output">这里会显示最近记录或智能复盘结果。</pre>
+    </div>
 
-  out.innerText=
-`📊 系统复盘
+    <div class="card">
+      <h2>📈 精力趋势</h2>
+      <canvas id="energyChart"></canvas>
+    </div>
 
-📈 平均精力：${avg.toFixed(1)}
-📚 记录天数：${d.length}
+    <div class="card">
+      <h2>📊 行为趋势</h2>
+      <canvas id="actionChart"></canvas>
+    </div>
 
-🧠 判断：
-${avg<5?"状态偏低，避免冲动决策":"状态正常，可推进任务"}
+    <div class="footer-note">
+      每日决策 v5.2 ｜ 先记录，再理解，再优化自己
+    </div>
+  </div>
 
-💡 建议：
-减少信息输入，增加专注执行时间。`;
-}
+  <script>
+    const STORAGE_KEY = "daily_decision_v52";
 
-function draw(){
-  let d=get();
-  let labels=d.map(x=>x.t);
-  let energy=d.map(x=>x.energy);
+    let todayChoice = {
+      studyStatus: "",
+      investAction: "",
+      sleep: "",
+      energy: "",
+      mood: ""
+    };
 
-  new Chart(c1,{
-    type:'line',
-    data:{labels,datasets:[{label:'精力',data:energy}]}
-  });
-}
+    let energyChartInstance = null;
+    let actionChartInstance = null;
 
-draw();
-</script>
+    function setChoice(key, value, el) {
+      todayChoice[key] = value;
 
+      const group = el.parentElement;
+      const chips = group.querySelectorAll(".chip");
+      chips.forEach(chip => chip.classList.remove("active"));
+      el.classList.add("active");
+    }
+
+    function getData() {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    }
+
+    function saveData(data) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    function saveRecord() {
+      if (!todayChoice.studyStatus && !todayChoice.investAction && !todayChoice.sleep && !todayChoice.energy && !todayChoice.mood
+          && !studyNote.value.trim() && !investNote.value.trim() && !otherNote.value.trim()) {
+        alert("今天还没有选择或填写内容哦。");
+        return;
+      }
+
+      const data = getData();
+
+      const record = {
+        date: new Date().toLocaleDateString(),
+        dateTime: new Date().toLocaleString(),
+        studyStatus: todayChoice.studyStatus,
+        investAction: todayChoice.investAction,
+        sleep: todayChoice.sleep,
+        energy: Number(todayChoice.energy) || 0,
+        mood: todayChoice.mood,
+        studyNote: studyNote.value.trim(),
+        investNote: investNote.value.trim(),
+        otherNote: otherNote.value.trim()
+      };
+
+      data.push(record);
+      saveData(data);
+      alert("已保存今天记录");
+      renderCharts();
+    }
+
+    function showRecent() {
+      const data = getData();
+      const recent = data.slice(-7).reverse();
+
+      if (!recent.length) {
+        output.innerText = "暂无记录。";
+        return;
+      }
+
+      output.innerText = recent.map(item => {
+        return `📅 ${item.dateTime}
+📚 学习：${item.studyStatus || "未填"}${item.studyNote ? "｜" + item.studyNote : ""}
+💰 投资：${item.investAction || "未填"}${item.investNote ? "｜" + item.investNote : ""}
+😴 睡眠：${item.sleep || "未填"} ｜ ⚡精力：${item.energy || "未填"} ｜ 😊心情：${item.mood || "未填"}
+📝 备注：${item.otherNote || "无"}`;
+      }).join("\n\n-----------------------------\n\n");
+    }
+
+    function smartReview() {
+      const data = getData();
+      if (!data.length) {
+        output.innerText = "暂无数据，先保存今天记录再复盘。";
+        return;
+      }
+
+      const last = data[data.length - 1];
+      const recent7 = data.slice(-7);
+
+      const avgEnergy = recent7.reduce((sum, x) => sum + (x.energy || 0), 0) / recent7.length;
+
+      let review = `☀️ 每日决策 · 智能复盘
+
+📅 今日记录：${last.dateTime}
+
+一、今日概况
+- 学习状态：${last.studyStatus || "未填"}
+- 投资操作：${last.investAction || "未填"}
+- 睡眠状态：${last.sleep || "未填"}
+- 精力水平：${last.energy || "未填"}
+- 今日心情：${last.mood || "未填"}
+
+二、系统判断
+`;
+
+      if (last.energy >= 8) {
+        review += "- 你今天整体精力较高，适合处理重点任务，也适合推进学习和复盘。\n";
+      } else if (last.energy >= 5) {
+        review += "- 你今天精力中等，适合稳步推进，不适合塞太多任务。\n";
+      } else {
+        review += "- 你今天精力偏低，优先保状态，重要决策要谨慎。\n";
+      }
+
+      if (last.sleep === "差") {
+        review += "- 睡眠偏差可能会直接影响判断力，今天更容易情绪化或效率打折。\n";
+      }
+
+      if (["买入", "卖出", "加仓", "减仓"].includes(last.investAction) && last.energy <= 4) {
+        review += "- 今天在低精力状态下做了投资动作，建议重点检查是否受情绪影响。\n";
+      } else if (last.investAction === "观望" || last.investAction === "无操作") {
+        review += "- 今天投资上比较克制，这通常有助于减少冲动决策。\n";
+      }
+
+      if (last.studyStatus === "高效完成") {
+        review += "- 今天学习执行不错，说明你的行动力在线。\n";
+      } else if (last.studyStatus === "未开始") {
+        review += "- 今天学习未启动，建议明天把门槛压低，只求先开始。\n";
+      } else if (last.studyStatus === "只看没练") {
+        review += "- 今天偏输入，建议明天补一点输出，比如刷题、复盘或总结。\n";
+      }
+
+      review += `\n三、近7天趋势
+- 最近7天平均精力：${avgEnergy.toFixed(1)}
+- 记录天数：${recent7.length}
+`;
+
+      const actionDays = recent7.filter(x => ["买入", "卖出", "加仓", "减仓"].includes(x.investAction)).length;
+      if (actionDays >= 4) {
+        review += "- 近期投资动作偏多，建议回头检查是否存在“频繁应对消息”的倾向。\n";
+      } else {
+        review += "- 近期投资节奏整体还算稳定。\n";
+      }
+
+      const studyGoodDays = recent7.filter(x => x.studyStatus === "高效完成" || x.studyStatus === "完成部分").length;
+      if (studyGoodDays >= 4) {
+        review += "- 近期学习连续性不错，保持节奏比追求强度更重要。\n";
+      } else {
+        review += "- 近期学习连续性一般，可以把目标设得再小一点，先把节奏稳住。\n";
+      }
+
+      review += `\n四、明日建议
+`;
+
+      if (last.energy <= 4 || last.sleep === "差") {
+        review += "- 明天优先做减法：少看消息，少做高压力决策，先把状态拉回来。\n";
+      } else {
+        review += "- 明天优先做一件最重要的事，不贪多，先拿下一个确定性成果。\n";
+      }
+
+      if (!last.studyStatus || last.studyStatus === "未开始") {
+        review += "- 学习上先完成一个最小动作，例如 10 分钟复习 / 5 道题 / 20 个单词。\n";
+      }
+
+      if (!last.investAction || last.investAction === "观望" || last.investAction === "无操作") {
+        review += "- 投资上继续保持“先判断主线、再考虑位置、最后看是否动作”的节奏。\n";
+      } else {
+        review += "- 投资上建议把今天动作背后的原因写短一点，防止以后自己都忘了为什么买卖。\n";
+      }
+
+      output.innerText = review;
+    }
+
+    function clearToday() {
+      todayChoice = {
+        studyStatus: "",
+        investAction: "",
+        sleep: "",
+        energy: "",
+        mood: ""
+      };
+
+      document.querySelectorAll(".chip").forEach(chip => chip.classList.remove("active"));
+      studyNote.value = "";
+      investNote.value = "";
+      otherNote.value = "";
+      output.innerText = "当前输入已清空。";
+    }
+
+    function renderCharts() {
+      const data = getData();
+      const recent = data.slice(-14);
+
+      const labels = recent.map(item => item.date);
+
+      const energyData = recent.map(item => item.energy || 0);
+
+      const actionMap = {
+        "无操作": 0,
+        "观望": 0,
+        "买入": 1,
+        "卖出": 1,
+        "加仓": 1,
+        "减仓": 1
+      };
+      const actionData = recent.map(item => actionMap[item.investAction] ?? 0);
+
+      if (energyChartInstance) {
+        energyChartInstance.destroy();
+      }
+      if (actionChartInstance) {
+        actionChartInstance.destroy();
+      }
+
+      energyChartInstance = new Chart(document.getElementById("energyChart"), {
+        type: "line",
+        data: {
+          labels,
+          datasets: [{
+            label: "精力水平",
+            data: energyData,
+            tension: 0.35
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              display: true
+            }
+          },
+          scales: {
+            y: {
+              min: 0,
+              max: 10,
+              ticks: {
+                stepSize: 1
+              }
+            }
+          }
+        }
+      });
+
+      actionChartInstance = new Chart(document.getElementById("actionChart"), {
+        type: "bar",
+        data: {
+          labels,
+          datasets: [{
+            label: "是否有投资动作（1=有，0=无）",
+            data: actionData
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              display: true
+            }
+          },
+          scales: {
+            y: {
+              min: 0,
+              max: 1,
+              ticks: {
+                stepSize: 1
+              }
+            }
+          }
+        }
+      });
+    }
+
+    renderCharts();
+  </script>
 </body>
 </html>
