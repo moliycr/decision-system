@@ -3,299 +3,341 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>每日决策</title>
+
   <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="每日决策">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#ffbf47">
+  <meta name="apple-mobile-web-app-title" content="每日决策">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#ffbf47">
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
-<style>
-  * {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-  }
 
-  html {
-    background: #f4f7fb;
-  }
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-  body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", sans-serif;
-    background: linear-gradient(180deg, #fff3c4 0%, #f8fbff 38%, #f4f7fb 100%);
-    color: #1f2937;
-    min-height: 100vh;
-    padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
-  }
+    html {
+      background: #f6f8fb;
+    }
 
-  body::before {
-    content: "";
-    position: fixed;
-    top: -90px;
-    right: -80px;
-    width: 220px;
-    height: 220px;
-    background: rgba(255, 185, 72, 0.35);
-    border-radius: 50%;
-    filter: blur(4px);
-    z-index: -1;
-  }
-
-  body::after {
-    content: "";
-    position: fixed;
-    left: -90px;
-    bottom: -100px;
-    width: 240px;
-    height: 240px;
-    background: rgba(104, 178, 255, 0.22);
-    border-radius: 50%;
-    filter: blur(6px);
-    z-index: -1;
-  }
-
-  h1 {
-    max-width: 760px;
-    margin: 18px auto 14px;
-    padding: 22px 18px 20px;
-    font-size: 30px;
-    line-height: 1.15;
-    font-weight: 850;
-    color: #4a3100;
-    border-radius: 0 0 28px 28px;
-    background: linear-gradient(135deg, #ffe08a 0%, #ffb84d 60%, #ffd36b 100%);
-    box-shadow: 0 16px 34px rgba(255, 178, 63, 0.28);
-    position: relative;
-    overflow: hidden;
-  }
-
-  h1::before {
-    content: "☀️";
-    position: absolute;
-    right: 20px;
-    top: 16px;
-    font-size: 42px;
-    opacity: 0.85;
-  }
-
-  h1::after {
-    content: "每天一点记录，让选择更清晰";
-    display: block;
-    margin-top: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    color: rgba(74, 49, 0, 0.72);
-  }
-
-  h2, h3 {
-    margin-top: 0;
-    color: #111827;
-    letter-spacing: -0.2px;
-  }
-
-  h2 {
-    font-size: 20px;
-    margin-bottom: 14px;
-  }
-
-  h3 {
-    font-size: 17px;
-    margin-bottom: 10px;
-  }
-
-  .card {
-    max-width: 760px;
-    margin: 14px auto;
-    padding: 18px;
-    border-radius: 24px;
-    background: rgba(255, 255, 255, 0.82);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    box-shadow:
-      0 12px 30px rgba(31, 41, 55, 0.08),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.72);
-  }
-
-  .card:first-of-type {
-    margin-top: 8px;
-  }
-
-  input,
-  textarea {
-    width: 100%;
-    border: none;
-    outline: none;
-    border-radius: 18px;
-    background: #f6f8fb;
-    padding: 14px 15px;
-    margin: 8px 0;
-    font-size: 15px;
-    color: #1f2937;
-    box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.18);
-  }
-
-  textarea {
-    min-height: 96px;
-    line-height: 1.6;
-    resize: vertical;
-  }
-
-  input::placeholder,
-  textarea::placeholder {
-    color: #9ca3af;
-  }
-
-  input:focus,
-  textarea:focus {
-    background: #ffffff;
-    box-shadow:
-      inset 0 0 0 1.5px rgba(255, 172, 51, 0.75),
-      0 0 0 4px rgba(255, 198, 91, 0.18);
-  }
-
-  button {
-    width: 100%;
-    border: none;
-    border-radius: 18px;
-    padding: 14px 16px;
-    margin-top: 10px;
-    font-size: 15px;
-    font-weight: 750;
-    color: #4a3100;
-    background: linear-gradient(135deg, #ffd56a, #ffad3d);
-    box-shadow: 0 10px 22px rgba(255, 174, 61, 0.28);
-    cursor: pointer;
-  }
-
-  button:active {
-    transform: scale(0.985);
-    box-shadow: 0 6px 14px rgba(255, 174, 61, 0.22);
-  }
-
-  button:nth-of-type(2),
-  button:nth-of-type(3),
-  button:nth-of-type(4) {
-    background: rgba(255, 255, 255, 0.8);
-    color: #34506f;
-    box-shadow:
-      0 8px 18px rgba(31, 41, 55, 0.06),
-      inset 0 0 0 1px rgba(148, 163, 184, 0.18);
-  }
-
-  pre {
-    white-space: pre-wrap;
-    word-break: break-word;
-    line-height: 1.7;
-    font-size: 14px;
-    color: #374151;
-    background: #fffaf0;
-    border-radius: 20px;
-    padding: 16px;
-    box-shadow: inset 0 0 0 1px rgba(255, 203, 125, 0.28);
-    min-height: 120px;
-  }
-
-  canvas {
-    width: 100% !important;
-    max-height: 280px;
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 20px;
-    background: #ffffff;
-    box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.14);
-  }
-
-  .small,
-  .small-text,
-  .footer-note {
-    color: #7b8494;
-    font-size: 12px;
-    line-height: 1.6;
-  }
-
-  .chip-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 8px 0 12px;
-  }
-
-  .chip {
-    width: auto;
-    margin: 0;
-    padding: 10px 14px;
-    border-radius: 999px;
-    font-size: 14px;
-    color: #4b5563;
-    background: #f4f7fb;
-    box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.16);
-  }
-
-  .chip.active {
-    color: #4a3100;
-    background: linear-gradient(135deg, #ffd56a, #ffad3d);
-    box-shadow: 0 8px 18px rgba(255, 174, 61, 0.28);
-  }
-
-  @media (max-width: 820px) {
     body {
-      padding-left: 12px;
-      padding-right: 12px;
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(circle at 85% 5%, rgba(255, 203, 92, 0.46), transparent 32%),
+        radial-gradient(circle at 8% 86%, rgba(112, 190, 255, 0.24), transparent 34%),
+        linear-gradient(180deg, #fff4c8 0%, #fffdf4 28%, #f6f8fb 100%);
+      color: #1f2937;
+      padding: env(safe-area-inset-top) 12px env(safe-area-inset-bottom);
     }
 
-    h1 {
-      margin-top: 10px;
-      border-radius: 28px;
-      font-size: 28px;
+    .app {
+      max-width: 780px;
+      margin: 0 auto;
+      padding-bottom: 36px;
     }
 
-    .card {
-      margin-left: 0;
-      margin-right: 0;
+    .hero {
+      margin: 14px 0 16px;
+      padding: 24px 20px 20px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #ffe08a 0%, #ffbb55 58%, #ffd56d 100%);
+      box-shadow: 0 18px 38px rgba(255, 180, 70, 0.32);
+      color: #4a3100;
+      position: relative;
+      overflow: hidden;
     }
-  }
 
-  @media (max-width: 520px) {
-    h1 {
-      font-size: 26px;
-      padding: 22px 18px;
-    }
-
-    h1::before {
-      font-size: 36px;
-      right: 18px;
+    .hero::before {
+      content: "☀️";
+      position: absolute;
+      right: 20px;
       top: 18px;
+      font-size: 44px;
+      opacity: 0.9;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -54px;
+      bottom: -58px;
+      width: 170px;
+      height: 170px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.24);
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: -0.8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero p {
+      margin: 9px 0 0;
+      max-width: 82%;
+      font-size: 14px;
+      line-height: 1.6;
+      font-weight: 600;
+      color: rgba(74, 49, 0, 0.75);
+      position: relative;
+      z-index: 1;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 15px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.45);
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(74, 49, 0, 0.78);
     }
 
     .card {
-      border-radius: 22px;
-      padding: 16px;
+      margin: 14px 0;
+      padding: 17px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow:
+        0 14px 34px rgba(31, 41, 55, 0.08),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.78);
     }
 
-    button {
-      border-radius: 16px;
+    .card-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
     }
-  }
-</style>
+
+    .card-title h2 {
+      margin: 0;
+      font-size: 19px;
+      font-weight: 850;
+      letter-spacing: -0.3px;
+      color: #111827;
+    }
+
+    .card-title span {
+      font-size: 12px;
+      color: #8b93a1;
+      font-weight: 650;
+    }
+
+    .section-title {
+      margin: 15px 0 9px;
+      font-size: 14px;
+      font-weight: 800;
+      color: #4b5563;
+    }
+
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-bottom: 4px;
+    }
+
+    .chip {
+      width: auto;
+      margin: 0;
+      padding: 10px 14px;
+      border: none;
+      border-radius: 999px;
+      background: #f4f7fb;
+      color: #4b5563;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.16);
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .chip.active {
+      color: #4a3100;
+      background: linear-gradient(135deg, #ffd66d, #ffad3d);
+      box-shadow: 0 9px 18px rgba(255, 174, 61, 0.30);
+      transform: translateY(-1px);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 84px;
+      margin: 7px 0 4px;
+      padding: 13px 14px;
+      border: none;
+      outline: none;
+      border-radius: 18px;
+      resize: vertical;
+      background: #f7f9fc;
+      color: #1f2937;
+      font-size: 15px;
+      line-height: 1.6;
+      box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.18);
+    }
+
+    textarea::placeholder {
+      color: #a0a8b5;
+    }
+
+    textarea:focus {
+      background: #ffffff;
+      box-shadow:
+        inset 0 0 0 1.5px rgba(255, 172, 51, 0.76),
+        0 0 0 4px rgba(255, 198, 91, 0.18);
+    }
+
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 17px;
+    }
+
+    .btn {
+      width: 100%;
+      border: none;
+      border-radius: 18px;
+      padding: 14px 12px;
+      font-size: 15px;
+      font-weight: 850;
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+
+    .btn:active {
+      transform: scale(0.985);
+    }
+
+    .btn-primary {
+      color: #4a3100;
+      background: linear-gradient(135deg, #ffd56a, #ffad3d);
+      box-shadow: 0 11px 24px rgba(255, 174, 61, 0.28);
+    }
+
+    .btn-secondary {
+      color: #34506f;
+      background: rgba(255, 255, 255, 0.86);
+      box-shadow:
+        0 8px 18px rgba(31, 41, 55, 0.06),
+        inset 0 0 0 1px rgba(148, 163, 184, 0.18);
+    }
+
+    .hint {
+      margin-top: 11px;
+      color: #7b8494;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .output {
+      min-height: 136px;
+      margin: 0;
+      padding: 15px;
+      border-radius: 20px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      line-height: 1.75;
+      font-size: 14px;
+      color: #374151;
+      background: #fffaf0;
+      box-shadow: inset 0 0 0 1px rgba(255, 203, 125, 0.34);
+    }
+
+    canvas {
+      width: 100% !important;
+      max-height: 280px;
+      margin-top: 6px;
+      padding: 10px;
+      border-radius: 20px;
+      background: #ffffff;
+      box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.14);
+    }
+
+    .footer {
+      margin: 20px 0 8px;
+      text-align: center;
+      color: #8a93a3;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 520px) {
+      body {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      .hero {
+        border-radius: 28px;
+        padding: 23px 18px 19px;
+      }
+
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .hero p {
+        max-width: 80%;
+        font-size: 13px;
+      }
+
+      .card {
+        border-radius: 24px;
+        padding: 16px;
+      }
+
+      .button-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .chip {
+        padding: 10px 13px;
+      }
+    }
+  </style>
 </head>
-<body>
-  <div class="container">
-    <div class="hero">
-      <h1>☀️ 每日决策</h1>
-      <p>每天花 1 分钟，记录学习、投资和状态。让自己少一点混乱，多一点清晰。</p>
-      <div class="tip-row">
-        <div class="tip-badge">轻记录</div>
-        <div class="tip-badge">智能复盘</div>
-        <div class="tip-badge">趋势追踪</div>
-      </div>
-    </div>
 
-    <div class="card">
-      <h2>📌 今日记录</h2>
+<body>
+  <main class="app">
+    <section class="hero">
+      <h1>每日决策</h1>
+      <p>每天 1 分钟，记录学习、投资和状态，让选择更清晰。</p>
+      <div class="badges">
+        <div class="badge">轻记录</div>
+        <div class="badge">智能复盘</div>
+        <div class="badge">趋势追踪</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-title">
+        <h2>📌 今日记录</h2>
+        <span>点击选择即可</span>
+      </div>
 
       <div class="section-title">📚 学习状态</div>
-      <div class="chip-group" id="studyStatusGroup">
+      <div class="chip-group">
         <button class="chip" onclick="setChoice('studyStatus','高效完成', this)">高效完成</button>
         <button class="chip" onclick="setChoice('studyStatus','完成部分', this)">完成部分</button>
         <button class="chip" onclick="setChoice('studyStatus','只看没练', this)">只看没练</button>
@@ -303,7 +345,7 @@
       </div>
 
       <div class="section-title">💰 投资操作</div>
-      <div class="chip-group" id="investActionGroup">
+      <div class="chip-group">
         <button class="chip" onclick="setChoice('investAction','买入', this)">买入</button>
         <button class="chip" onclick="setChoice('investAction','卖出', this)">卖出</button>
         <button class="chip" onclick="setChoice('investAction','加仓', this)">加仓</button>
@@ -313,14 +355,14 @@
       </div>
 
       <div class="section-title">😴 睡眠状态</div>
-      <div class="chip-group" id="sleepGroup">
+      <div class="chip-group">
         <button class="chip" onclick="setChoice('sleep','好', this)">好</button>
         <button class="chip" onclick="setChoice('sleep','一般', this)">一般</button>
         <button class="chip" onclick="setChoice('sleep','差', this)">差</button>
       </div>
 
       <div class="section-title">⚡ 精力水平</div>
-      <div class="chip-group" id="energyGroup">
+      <div class="chip-group">
         <button class="chip" onclick="setChoice('energy','1', this)">1</button>
         <button class="chip" onclick="setChoice('energy','2', this)">2</button>
         <button class="chip" onclick="setChoice('energy','3', this)">3</button>
@@ -334,7 +376,7 @@
       </div>
 
       <div class="section-title">😊 今日心情</div>
-      <div class="chip-group" id="moodGroup">
+      <div class="chip-group">
         <button class="chip" onclick="setChoice('mood','平静', this)">平静</button>
         <button class="chip" onclick="setChoice('mood','积极', this)">积极</button>
         <button class="chip" onclick="setChoice('mood','焦虑', this)">焦虑</button>
@@ -342,46 +384,56 @@
         <button class="chip" onclick="setChoice('mood','烦躁', this)">烦躁</button>
       </div>
 
-      <div class="section-title">📝 学习补充（可不填）</div>
+      <div class="section-title">📝 学习补充，可不填</div>
       <textarea id="studyNote" placeholder="例如：刷了10道言语，背了30个雅思单词"></textarea>
 
-      <div class="section-title">📝 投资补充（可不填）</div>
+      <div class="section-title">📝 投资补充，可不填</div>
       <textarea id="investNote" placeholder="例如：今天主要观望科技，没追高"></textarea>
 
-      <div class="section-title">📝 其他备注（可不填）</div>
+      <div class="section-title">📝 其他备注，可不填</div>
       <textarea id="otherNote" placeholder="例如：午睡后很昏沉，晚上状态一般"></textarea>
 
-      <div class="button-row">
+      <div class="button-grid">
         <button class="btn btn-primary" onclick="saveRecord()">保存今天</button>
         <button class="btn btn-secondary" onclick="showRecent()">最近7天</button>
         <button class="btn btn-primary" onclick="smartReview()">智能复盘</button>
         <button class="btn btn-secondary" onclick="clearToday()">清空当前</button>
       </div>
 
-      <div class="small-text">
-        数据保存在浏览器本地。若你后续想做真正云同步版，我再带你继续升。
+      <div class="hint">
+        数据保存在当前浏览器本地。换设备或清理浏览器数据后，本地记录可能会丢失。
       </div>
-    </div>
+    </section>
 
-    <div class="card">
-      <h2>🤖 智能输出</h2>
+    <section class="card">
+      <div class="card-title">
+        <h2>🤖 智能输出</h2>
+        <span>复盘 / 历史</span>
+      </div>
       <pre class="output" id="output">这里会显示最近记录或智能复盘结果。</pre>
-    </div>
+    </section>
 
-    <div class="card">
-      <h2>📈 精力趋势</h2>
+    <section class="card">
+      <div class="card-title">
+        <h2>📈 精力趋势</h2>
+        <span>近14条记录</span>
+      </div>
       <canvas id="energyChart"></canvas>
-    </div>
+    </section>
 
-    <div class="card">
-      <h2>📊 行为趋势</h2>
+    <section class="card">
+      <div class="card-title">
+        <h2>📊 行为趋势</h2>
+        <span>1=有投资动作</span>
+      </div>
       <canvas id="actionChart"></canvas>
-    </div>
+    </section>
 
-    <div class="footer-note">
-      每日决策 v5.2 ｜ 先记录，再理解，再优化自己
+    <div class="footer">
+      每日决策 v5.2<br>
+      先记录，再理解，再优化自己
     </div>
-  </div>
+  </main>
 
   <script>
     const STORAGE_KEY = "daily_decision_v52";
@@ -415,8 +467,16 @@
     }
 
     function saveRecord() {
-      if (!todayChoice.studyStatus && !todayChoice.investAction && !todayChoice.sleep && !todayChoice.energy && !todayChoice.mood
-          && !studyNote.value.trim() && !investNote.value.trim() && !otherNote.value.trim()) {
+      if (
+        !todayChoice.studyStatus &&
+        !todayChoice.investAction &&
+        !todayChoice.sleep &&
+        !todayChoice.energy &&
+        !todayChoice.mood &&
+        !studyNote.value.trim() &&
+        !investNote.value.trim() &&
+        !otherNote.value.trim()
+      ) {
         alert("今天还没有选择或填写内容哦。");
         return;
       }
@@ -438,6 +498,7 @@
 
       data.push(record);
       saveData(data);
+
       alert("已保存今天记录");
       renderCharts();
     }
@@ -462,6 +523,7 @@
 
     function smartReview() {
       const data = getData();
+
       if (!data.length) {
         output.innerText = "暂无数据，先保存今天记录再复盘。";
         return;
@@ -506,10 +568,12 @@
 
       if (last.studyStatus === "高效完成") {
         review += "- 今天学习执行不错，说明你的行动力在线。\n";
-      } else if (last.studyStatus === "未开始") {
-        review += "- 今天学习未启动，建议明天把门槛压低，只求先开始。\n";
+      } else if (last.studyStatus === "完成部分") {
+        review += "- 今天学习有推进，保持连续性比一次学很多更重要。\n";
       } else if (last.studyStatus === "只看没练") {
         review += "- 今天偏输入，建议明天补一点输出，比如刷题、复盘或总结。\n";
+      } else if (last.studyStatus === "未开始") {
+        review += "- 今天学习未启动，建议明天把门槛压低，只求先开始。\n";
       }
 
       review += `\n三、近7天趋势
@@ -518,13 +582,15 @@
 `;
 
       const actionDays = recent7.filter(x => ["买入", "卖出", "加仓", "减仓"].includes(x.investAction)).length;
+
       if (actionDays >= 4) {
-        review += "- 近期投资动作偏多，建议回头检查是否存在“频繁应对消息”的倾向。\n";
+        review += "- 近期投资动作偏多，建议检查是否存在被消息牵着走、频繁应对市场波动的倾向。\n";
       } else {
-        review += "- 近期投资节奏整体还算稳定。\n";
+        review += "- 近期投资节奏整体还算稳定，没有明显过度频繁操作。\n";
       }
 
       const studyGoodDays = recent7.filter(x => x.studyStatus === "高效完成" || x.studyStatus === "完成部分").length;
+
       if (studyGoodDays >= 4) {
         review += "- 近期学习连续性不错，保持节奏比追求强度更重要。\n";
       } else {
@@ -563,9 +629,11 @@
       };
 
       document.querySelectorAll(".chip").forEach(chip => chip.classList.remove("active"));
+
       studyNote.value = "";
       investNote.value = "";
       otherNote.value = "";
+
       output.innerText = "当前输入已清空。";
     }
 
@@ -574,7 +642,6 @@
       const recent = data.slice(-14);
 
       const labels = recent.map(item => item.date);
-
       const energyData = recent.map(item => item.energy || 0);
 
       const actionMap = {
@@ -585,11 +652,13 @@
         "加仓": 1,
         "减仓": 1
       };
+
       const actionData = recent.map(item => actionMap[item.investAction] ?? 0);
 
       if (energyChartInstance) {
         energyChartInstance.destroy();
       }
+
       if (actionChartInstance) {
         actionChartInstance.destroy();
       }
@@ -601,7 +670,8 @@
           datasets: [{
             label: "精力水平",
             data: energyData,
-            tension: 0.35
+            tension: 0.35,
+            fill: true
           }]
         },
         options: {
@@ -628,7 +698,7 @@
         data: {
           labels,
           datasets: [{
-            label: "是否有投资动作（1=有，0=无）",
+            label: "是否有投资动作",
             data: actionData
           }]
         },
