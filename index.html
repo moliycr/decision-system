@@ -2,8 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>每日决策</title>
 
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -28,17 +27,16 @@
       min-height: 100vh;
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", sans-serif;
       background:
-        radial-gradient(circle at 85% 5%, rgba(255, 203, 92, 0.46), transparent 32%),
-        radial-gradient(circle at 8% 86%, rgba(112, 190, 255, 0.24), transparent 34%),
+        radial-gradient(circle at 88% 3%, rgba(255, 205, 92, 0.48), transparent 30%),
+        radial-gradient(circle at 5% 88%, rgba(115, 195, 255, 0.25), transparent 34%),
         linear-gradient(180deg, #fff4c8 0%, #fffdf4 28%, #f6f8fb 100%);
       color: #1f2937;
-      padding: env(safe-area-inset-top) 12px env(safe-area-inset-bottom);
+      padding: env(safe-area-inset-top) 10px calc(86px + env(safe-area-inset-bottom));
     }
 
     .app {
       max-width: 780px;
       margin: 0 auto;
-      padding-bottom: 36px;
     }
 
     .hero {
@@ -86,7 +84,7 @@
       max-width: 82%;
       font-size: 14px;
       line-height: 1.6;
-      font-weight: 600;
+      font-weight: 650;
       color: rgba(74, 49, 0, 0.75);
       position: relative;
       z-index: 1;
@@ -106,15 +104,35 @@
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.45);
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 760;
       color: rgba(74, 49, 0, 0.78);
+    }
+
+    .tab-page {
+      display: none;
+      animation: fadeIn 0.16s ease;
+    }
+
+    .tab-page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .card {
       margin: 14px 0;
       padding: 17px;
       border-radius: 26px;
-      background: rgba(255, 255, 255, 0.86);
+      background: rgba(255, 255, 255, 0.88);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       box-shadow:
@@ -142,12 +160,13 @@
       font-size: 12px;
       color: #8b93a1;
       font-weight: 650;
+      white-space: nowrap;
     }
 
     .section-title {
       margin: 15px 0 9px;
       font-size: 14px;
-      font-weight: 800;
+      font-weight: 820;
       color: #4b5563;
     }
 
@@ -167,7 +186,7 @@
       background: #f4f7fb;
       color: #4b5563;
       font-size: 14px;
-      font-weight: 700;
+      font-weight: 720;
       box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.16);
       cursor: pointer;
       transition: 0.18s ease;
@@ -180,15 +199,14 @@
       transform: translateY(-1px);
     }
 
-    textarea {
+    textarea,
+    input {
       width: 100%;
-      min-height: 84px;
       margin: 7px 0 4px;
       padding: 13px 14px;
       border: none;
       outline: none;
       border-radius: 18px;
-      resize: vertical;
       background: #f7f9fc;
       color: #1f2937;
       font-size: 15px;
@@ -196,11 +214,18 @@
       box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.18);
     }
 
-    textarea::placeholder {
+    textarea {
+      min-height: 84px;
+      resize: vertical;
+    }
+
+    textarea::placeholder,
+    input::placeholder {
       color: #a0a8b5;
     }
 
-    textarea:focus {
+    textarea:focus,
+    input:focus {
       background: #ffffff;
       box-shadow:
         inset 0 0 0 1.5px rgba(255, 172, 51, 0.76),
@@ -274,12 +299,169 @@
       box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.14);
     }
 
-    .footer {
-      margin: 20px 0 8px;
-      text-align: center;
-      color: #8a93a3;
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 8px 0 12px;
+    }
+
+    .summary-card {
+      padding: 13px;
+      border-radius: 20px;
+      background: #f8fbff;
+      box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.12);
+    }
+
+    .summary-card .num {
+      font-size: 22px;
+      font-weight: 900;
+      color: #111827;
+      margin-bottom: 4px;
+    }
+
+    .summary-card .label {
       font-size: 12px;
+      color: #7b8494;
+      font-weight: 700;
+    }
+
+    .market-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .market-note {
+      font-size: 12px;
+      color: #7b8494;
       line-height: 1.7;
+      margin: 8px 0 0;
+    }
+
+    .tradingview-widget-container {
+      border-radius: 22px;
+      overflow: hidden;
+      background: #ffffff;
+      box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.14);
+      min-height: 430px;
+    }
+
+    .word-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .word-card {
+      border-radius: 20px;
+      background: #ffffff;
+      padding: 14px;
+      box-shadow:
+        0 8px 18px rgba(31, 41, 55, 0.045),
+        inset 0 0 0 1px rgba(148, 163, 184, 0.12);
+    }
+
+    .word-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 7px;
+    }
+
+    .word-main {
+      font-size: 19px;
+      font-weight: 900;
+      color: #111827;
+    }
+
+    .phonetic {
+      font-size: 12px;
+      color: #8b93a1;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .meaning {
+      font-size: 14px;
+      font-weight: 760;
+      color: #4a3100;
+      margin-bottom: 6px;
+    }
+
+    .example {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #4b5563;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      left: 50%;
+      bottom: 10px;
+      transform: translateX(-50%);
+      width: min(760px, calc(100% - 22px));
+      padding: 8px 9px calc(8px + env(safe-area-inset-bottom));
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow:
+        0 16px 40px rgba(31, 41, 55, 0.16),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.72);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      z-index: 50;
+    }
+
+    .nav-btn {
+      border: none;
+      background: transparent;
+      border-radius: 19px;
+      padding: 9px 4px 8px;
+      color: #7b8494;
+      font-size: 12px;
+      font-weight: 800;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .nav-btn .icon {
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .nav-btn.active {
+      color: #4a3100;
+      background: linear-gradient(135deg, rgba(255, 216, 110, 0.92), rgba(255, 174, 61, 0.88));
+      box-shadow: 0 8px 18px rgba(255, 174, 61, 0.22);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: calc(94px + env(safe-area-inset-bottom));
+      transform: translateX(-50%) translateY(12px);
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(17, 24, 39, 0.86);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 700;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.2s ease;
+      z-index: 80;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
 
     @media (max-width: 520px) {
@@ -307,12 +489,17 @@
         padding: 16px;
       }
 
-      .button-grid {
+      .button-grid,
+      .summary-grid {
         grid-template-columns: 1fr;
       }
 
       .chip {
         padding: 10px 13px;
+      }
+
+      .bottom-nav {
+        bottom: 8px;
       }
     }
   </style>
@@ -330,113 +517,253 @@
       </div>
     </section>
 
-    <section class="card">
-      <div class="card-title">
-        <h2>📌 今日记录</h2>
-        <span>点击选择即可</span>
-      </div>
+    <section id="tab-home" class="tab-page active">
+      <section class="card">
+        <div class="card-title">
+          <h2>📌 今日记录</h2>
+          <span>点击选择即可</span>
+        </div>
 
-      <div class="section-title">📚 学习状态</div>
-      <div class="chip-group">
-        <button class="chip" onclick="setChoice('studyStatus','高效完成', this)">高效完成</button>
-        <button class="chip" onclick="setChoice('studyStatus','完成部分', this)">完成部分</button>
-        <button class="chip" onclick="setChoice('studyStatus','只看没练', this)">只看没练</button>
-        <button class="chip" onclick="setChoice('studyStatus','未开始', this)">未开始</button>
-      </div>
+        <div class="section-title">📚 学习状态</div>
+        <div class="chip-group">
+          <button class="chip" onclick="setChoice('studyStatus','高效完成', this)">高效完成</button>
+          <button class="chip" onclick="setChoice('studyStatus','完成部分', this)">完成部分</button>
+          <button class="chip" onclick="setChoice('studyStatus','只看没练', this)">只看没练</button>
+          <button class="chip" onclick="setChoice('studyStatus','未开始', this)">未开始</button>
+        </div>
 
-      <div class="section-title">💰 投资操作</div>
-      <div class="chip-group">
-        <button class="chip" onclick="setChoice('investAction','买入', this)">买入</button>
-        <button class="chip" onclick="setChoice('investAction','卖出', this)">卖出</button>
-        <button class="chip" onclick="setChoice('investAction','加仓', this)">加仓</button>
-        <button class="chip" onclick="setChoice('investAction','减仓', this)">减仓</button>
-        <button class="chip" onclick="setChoice('investAction','观望', this)">观望</button>
-        <button class="chip" onclick="setChoice('investAction','无操作', this)">无操作</button>
-      </div>
+        <div class="section-title">💰 投资操作</div>
+        <div class="chip-group">
+          <button class="chip" onclick="setChoice('investAction','买入', this)">买入</button>
+          <button class="chip" onclick="setChoice('investAction','卖出', this)">卖出</button>
+          <button class="chip" onclick="setChoice('investAction','加仓', this)">加仓</button>
+          <button class="chip" onclick="setChoice('investAction','减仓', this)">减仓</button>
+          <button class="chip" onclick="setChoice('investAction','观望', this)">观望</button>
+          <button class="chip" onclick="setChoice('investAction','无操作', this)">无操作</button>
+        </div>
 
-      <div class="section-title">😴 睡眠状态</div>
-      <div class="chip-group">
-        <button class="chip" onclick="setChoice('sleep','好', this)">好</button>
-        <button class="chip" onclick="setChoice('sleep','一般', this)">一般</button>
-        <button class="chip" onclick="setChoice('sleep','差', this)">差</button>
-      </div>
+        <div class="section-title">😴 睡眠状态</div>
+        <div class="chip-group">
+          <button class="chip" onclick="setChoice('sleep','好', this)">好</button>
+          <button class="chip" onclick="setChoice('sleep','一般', this)">一般</button>
+          <button class="chip" onclick="setChoice('sleep','差', this)">差</button>
+        </div>
 
-      <div class="section-title">⚡ 精力水平</div>
-      <div class="chip-group">
-        <button class="chip" onclick="setChoice('energy','1', this)">1</button>
-        <button class="chip" onclick="setChoice('energy','2', this)">2</button>
-        <button class="chip" onclick="setChoice('energy','3', this)">3</button>
-        <button class="chip" onclick="setChoice('energy','4', this)">4</button>
-        <button class="chip" onclick="setChoice('energy','5', this)">5</button>
-        <button class="chip" onclick="setChoice('energy','6', this)">6</button>
-        <button class="chip" onclick="setChoice('energy','7', this)">7</button>
-        <button class="chip" onclick="setChoice('energy','8', this)">8</button>
-        <button class="chip" onclick="setChoice('energy','9', this)">9</button>
-        <button class="chip" onclick="setChoice('energy','10', this)">10</button>
-      </div>
+        <div class="section-title">⚡ 精力水平</div>
+        <div class="chip-group">
+          <button class="chip" onclick="setChoice('energy','1', this)">1</button>
+          <button class="chip" onclick="setChoice('energy','2', this)">2</button>
+          <button class="chip" onclick="setChoice('energy','3', this)">3</button>
+          <button class="chip" onclick="setChoice('energy','4', this)">4</button>
+          <button class="chip" onclick="setChoice('energy','5', this)">5</button>
+          <button class="chip" onclick="setChoice('energy','6', this)">6</button>
+          <button class="chip" onclick="setChoice('energy','7', this)">7</button>
+          <button class="chip" onclick="setChoice('energy','8', this)">8</button>
+          <button class="chip" onclick="setChoice('energy','9', this)">9</button>
+          <button class="chip" onclick="setChoice('energy','10', this)">10</button>
+        </div>
 
-      <div class="section-title">😊 今日心情</div>
-      <div class="chip-group">
-        <button class="chip" onclick="setChoice('mood','平静', this)">平静</button>
-        <button class="chip" onclick="setChoice('mood','积极', this)">积极</button>
-        <button class="chip" onclick="setChoice('mood','焦虑', this)">焦虑</button>
-        <button class="chip" onclick="setChoice('mood','疲惫', this)">疲惫</button>
-        <button class="chip" onclick="setChoice('mood','烦躁', this)">烦躁</button>
-      </div>
+        <div class="section-title">😊 今日心情</div>
+        <div class="chip-group">
+          <button class="chip" onclick="setChoice('mood','平静', this)">平静</button>
+          <button class="chip" onclick="setChoice('mood','积极', this)">积极</button>
+          <button class="chip" onclick="setChoice('mood','焦虑', this)">焦虑</button>
+          <button class="chip" onclick="setChoice('mood','疲惫', this)">疲惫</button>
+          <button class="chip" onclick="setChoice('mood','烦躁', this)">烦躁</button>
+        </div>
 
-      <div class="section-title">📝 学习补充，可不填</div>
-      <textarea id="studyNote" placeholder="例如：刷了10道言语，背了30个雅思单词"></textarea>
+        <div class="section-title">📝 学习补充，可不填</div>
+        <textarea id="studyNote" placeholder="例如：刷了10道言语，背了30个雅思单词"></textarea>
 
-      <div class="section-title">📝 投资补充，可不填</div>
-      <textarea id="investNote" placeholder="例如：今天主要观望科技，没追高"></textarea>
+        <div class="section-title">📝 投资补充，可不填</div>
+        <textarea id="investNote" placeholder="例如：今天主要观望科技，没追高"></textarea>
 
-      <div class="section-title">📝 其他备注，可不填</div>
-      <textarea id="otherNote" placeholder="例如：午睡后很昏沉，晚上状态一般"></textarea>
+        <div class="section-title">📝 其他备注，可不填</div>
+        <textarea id="otherNote" placeholder="例如：午睡后很昏沉，晚上状态一般"></textarea>
 
-      <div class="button-grid">
-        <button class="btn btn-primary" onclick="saveRecord()">保存今天</button>
-        <button class="btn btn-secondary" onclick="showRecent()">最近7天</button>
-        <button class="btn btn-primary" onclick="smartReview()">智能复盘</button>
-        <button class="btn btn-secondary" onclick="clearToday()">清空当前</button>
-      </div>
+        <div class="button-grid">
+          <button class="btn btn-primary" onclick="saveRecord()">保存今天</button>
+          <button class="btn btn-secondary" onclick="clearToday()">清空当前</button>
+        </div>
 
-      <div class="hint">
-        数据保存在当前浏览器本地。换设备或清理浏览器数据后，本地记录可能会丢失。
-      </div>
+        <div class="hint">
+          数据保存在当前浏览器本地。换设备或清理浏览器数据后，本地记录可能会丢失。
+        </div>
+      </section>
     </section>
 
-    <section class="card">
-      <div class="card-title">
-        <h2>🤖 智能输出</h2>
-        <span>复盘 / 历史</span>
-      </div>
-      <pre class="output" id="output">这里会显示最近记录或智能复盘结果。</pre>
+    <section id="tab-records" class="tab-page">
+      <section class="card">
+        <div class="card-title">
+          <h2>📒 记录复盘</h2>
+          <span>趋势 + 复盘</span>
+        </div>
+
+        <div class="summary-grid">
+          <div class="summary-card">
+            <div class="num" id="totalDays">0</div>
+            <div class="label">记录条数</div>
+          </div>
+          <div class="summary-card">
+            <div class="num" id="avgEnergy">0.0</div>
+            <div class="label">近7条均精力</div>
+          </div>
+          <div class="summary-card">
+            <div class="num" id="actionCount">0</div>
+            <div class="label">近7条投资动作</div>
+          </div>
+        </div>
+
+        <div class="button-grid">
+          <button class="btn btn-secondary" onclick="showRecent()">查看最近7条</button>
+          <button class="btn btn-primary" onclick="smartReview()">智能复盘</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-title">
+          <h2>🤖 智能输出</h2>
+          <span>复盘 / 历史</span>
+        </div>
+        <pre class="output" id="output">这里会显示最近记录或智能复盘结果。</pre>
+      </section>
+
+      <section class="card">
+        <div class="card-title">
+          <h2>📈 精力趋势</h2>
+          <span>近14条记录</span>
+        </div>
+        <canvas id="energyChart"></canvas>
+      </section>
+
+      <section class="card">
+        <div class="card-title">
+          <h2>📊 行为趋势</h2>
+          <span>1=有投资动作</span>
+        </div>
+        <canvas id="actionChart"></canvas>
+      </section>
     </section>
 
-    <section class="card">
-      <div class="card-title">
-        <h2>📈 精力趋势</h2>
-        <span>近14条记录</span>
-      </div>
-      <canvas id="energyChart"></canvas>
+    <section id="tab-info" class="tab-page">
+      <section class="card">
+        <div class="card-title">
+          <h2>🌍 实时信息</h2>
+          <span>黄金 / 股指</span>
+        </div>
+        <p class="market-note">这里嵌入行情组件。不同市场可能存在延迟，投资决策仍以券商、交易所或专业行情软件为准。</p>
+      </section>
+
+      <section class="card">
+        <div class="card-title">
+          <h2>📌 行情看板</h2>
+          <span>可左右滑动/点击查看</span>
+        </div>
+        <div class="market-grid">
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js" async>
+            {
+              "symbols": [
+                ["现货黄金", "OANDA:XAUUSD|1D"],
+                ["黄金期货", "TVC:GOLD|1D"],
+                ["上证指数", "SSE:000001|1D"],
+                ["沪深300", "SSE:000300|1D"],
+                ["纳斯达克100", "NASDAQ:NDX|1D"],
+                ["标普500", "SP:SPX|1D"]
+              ],
+              "chartOnly": false,
+              "width": "100%",
+              "height": "430",
+              "locale": "zh_CN",
+              "colorTheme": "light",
+              "autosize": true,
+              "showVolume": false,
+              "showMA": false,
+              "hideDateRanges": false,
+              "hideMarketStatus": false,
+              "hideSymbolLogo": false,
+              "scalePosition": "right",
+              "scaleMode": "Normal",
+              "fontFamily": "-apple-system, BlinkMacSystemFont, Trebuchet MS, Roboto, Ubuntu, sans-serif",
+              "fontSize": "10",
+              "noTimeScale": false,
+              "valuesTracking": "1",
+              "changeMode": "price-and-percent",
+              "chartType": "area"
+            }
+            </script>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-title">
+          <h2>📝 今日市场备注</h2>
+          <span>自己判断</span>
+        </div>
+        <textarea id="marketNote" placeholder="例如：黄金回调但主线未坏；A股科技高位，先看量能，不追消息。"></textarea>
+        <div class="button-grid">
+          <button class="btn btn-primary" onclick="saveMarketNote()">保存备注</button>
+          <button class="btn btn-secondary" onclick="loadMarketNote()">读取备注</button>
+        </div>
+      </section>
     </section>
 
-    <section class="card">
-      <div class="card-title">
-        <h2>📊 行为趋势</h2>
-        <span>1=有投资动作</span>
-      </div>
-      <canvas id="actionChart"></canvas>
+    <section id="tab-study" class="tab-page">
+      <section class="card">
+        <div class="card-title">
+          <h2>📚 今日10词</h2>
+          <span id="wordDate">每日更新</span>
+        </div>
+        <p class="market-note">每天固定 10 个词。先看英文回忆意思，再看释义和例句。</p>
+        <div class="button-grid">
+          <button class="btn btn-primary" onclick="markWordsDone()">完成今日10词</button>
+          <button class="btn btn-secondary" onclick="shiftWords()">换一组练习</button>
+        </div>
+        <div class="hint" id="wordStatus">今日还未打卡。</div>
+      </section>
+
+      <section class="card">
+        <div class="card-title">
+          <h2>🧠 单词卡片</h2>
+          <span>10 / day</span>
+        </div>
+        <div class="word-grid" id="wordList"></div>
+      </section>
     </section>
 
-    <div class="footer">
-      每日决策 v5.2<br>
-      先记录，再理解，再优化自己
+    <div class="footer" style="text-align:center;color:#8a93a3;font-size:12px;line-height:1.7;margin:20px 0 8px;">
+      每日决策 v5.3<br>
+      记录、复盘、行情、学习，放进一个小 App
     </div>
   </main>
 
+  <nav class="bottom-nav">
+    <button class="nav-btn active" onclick="switchTab('home', this)">
+      <span class="icon">🏠</span>
+      <span>首页</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('records', this)">
+      <span class="icon">📒</span>
+      <span>记录</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('info', this)">
+      <span class="icon">🌍</span>
+      <span>信息</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('study', this)">
+      <span class="icon">📚</span>
+      <span>学习</span>
+    </button>
+  </nav>
+
+  <div class="toast" id="toast"></div>
+
   <script>
     const STORAGE_KEY = "daily_decision_v52";
+    const MARKET_NOTE_KEY = "daily_decision_market_note";
+    const WORD_DONE_KEY = "daily_decision_words_done";
 
     let todayChoice = {
       studyStatus: "",
@@ -448,10 +775,96 @@
 
     let energyChartInstance = null;
     let actionChartInstance = null;
+    let wordOffset = 0;
+
+    const wordBank = [
+      { w: "abandon", p: "/əˈbændən/", m: "放弃；抛弃", e: "Do not abandon your plan just because progress is slow." },
+      { w: "accurate", p: "/ˈækjərət/", m: "准确的", e: "Accurate data helps us make better decisions." },
+      { w: "achieve", p: "/əˈtʃiːv/", m: "实现；达到", e: "Small steps can help you achieve a big goal." },
+      { w: "adapt", p: "/əˈdæpt/", m: "适应；调整", e: "You need to adapt your method when conditions change." },
+      { w: "adequate", p: "/ˈædɪkwət/", m: "足够的；合格的", e: "Adequate sleep is important for clear thinking." },
+      { w: "analyze", p: "/ˈænəlaɪz/", m: "分析", e: "We should analyze the reason before taking action." },
+      { w: "approach", p: "/əˈproʊtʃ/", m: "方法；接近", e: "This approach makes learning more efficient." },
+      { w: "assess", p: "/əˈses/", m: "评估", e: "Assess the risk before making an investment." },
+      { w: "assume", p: "/əˈsuːm/", m: "假设；认为", e: "Do not assume every market rumor is true." },
+      { w: "benefit", p: "/ˈbenɪfɪt/", m: "好处；受益", e: "Daily review can bring long-term benefits." },
+      { w: "capacity", p: "/kəˈpæsəti/", m: "能力；容量", e: "Your capacity improves when you train consistently." },
+      { w: "challenge", p: "/ˈtʃælɪndʒ/", m: "挑战", e: "The biggest challenge is to keep going." },
+      { w: "clarify", p: "/ˈklærɪfaɪ/", m: "澄清；明确", e: "Writing things down can clarify your thoughts." },
+      { w: "consistent", p: "/kənˈsɪstənt/", m: "持续的；一致的", e: "Consistent practice is better than sudden effort." },
+      { w: "construct", p: "/kənˈstrʌkt/", m: "建立；构建", e: "You can construct a better routine step by step." },
+      { w: "consume", p: "/kənˈsuːm/", m: "消耗；消费", e: "Too much information can consume your attention." },
+      { w: "context", p: "/ˈkɑːntekst/", m: "背景；语境", e: "A decision makes sense only in its context." },
+      { w: "decline", p: "/dɪˈklaɪn/", m: "下降；拒绝", e: "A decline in energy may affect performance." },
+      { w: "define", p: "/dɪˈfaɪn/", m: "定义；明确", e: "Define the problem before solving it." },
+      { w: "detect", p: "/dɪˈtekt/", m: "发现；察觉", e: "This tool helps detect repeated mistakes." },
+      { w: "efficient", p: "/ɪˈfɪʃnt/", m: "高效的", e: "An efficient learner reviews mistakes quickly." },
+      { w: "emerge", p: "/ɪˈmɜːrdʒ/", m: "出现；浮现", e: "A pattern may emerge after several days of records." },
+      { w: "evaluate", p: "/ɪˈvæljueɪt/", m: "评价；评估", e: "Evaluate your behavior instead of judging yourself." },
+      { w: "evidence", p: "/ˈevɪdəns/", m: "证据", e: "Make decisions based on evidence, not emotion." },
+      { w: "expand", p: "/ɪkˈspænd/", m: "扩大；扩展", e: "You can expand your vocabulary by reading daily." },
+      { w: "factor", p: "/ˈfæktər/", m: "因素", e: "Sleep is a key factor in decision quality." },
+      { w: "fluctuate", p: "/ˈflʌktʃueɪt/", m: "波动", e: "Markets fluctuate, so patience matters." },
+      { w: "focus", p: "/ˈfoʊkəs/", m: "专注；焦点", e: "Focus on the main trend, not every piece of news." },
+      { w: "generate", p: "/ˈdʒenəreɪt/", m: "产生；生成", e: "The system can generate a short review." },
+      { w: "identify", p: "/aɪˈdentɪfaɪ/", m: "识别；确认", e: "Identify your weak points before the next practice." },
+      { w: "impact", p: "/ˈɪmpækt/", m: "影响", e: "Bad sleep can have an impact on your mood." },
+      { w: "implement", p: "/ˈɪmplɪment/", m: "执行；实施", e: "A good plan matters only when you implement it." },
+      { w: "improve", p: "/ɪmˈpruːv/", m: "提高；改善", e: "Review helps improve future decisions." },
+      { w: "indicate", p: "/ˈɪndɪkeɪt/", m: "表明；显示", e: "Low energy may indicate the need for rest." },
+      { w: "invest", p: "/ɪnˈvest/", m: "投资；投入", e: "Invest time in skills that compound." },
+      { w: "maintain", p: "/meɪnˈteɪn/", m: "保持；维持", e: "Maintain a simple routine every day." },
+      { w: "monitor", p: "/ˈmɑːnɪtər/", m: "监测；跟踪", e: "Monitor your energy and behavior over time." },
+      { w: "objective", p: "/əbˈdʒektɪv/", m: "客观的；目标", e: "Try to make an objective decision." },
+      { w: "optimize", p: "/ˈɑːptɪmaɪz/", m: "优化", e: "You can optimize your day by reducing distractions." },
+      { w: "pattern", p: "/ˈpætərn/", m: "模式；规律", e: "Your records may show a useful pattern." },
+      { w: "priority", p: "/praɪˈɔːrəti/", m: "优先事项", e: "Set one clear priority for tomorrow." },
+      { w: "process", p: "/ˈprɑːses/", m: "过程；处理", e: "Learning is a process, not a single event." },
+      { w: "progress", p: "/ˈprɑːɡres/", m: "进步；进展", e: "Small progress is still progress." },
+      { w: "reduce", p: "/rɪˈduːs/", m: "减少", e: "Reduce noise before making decisions." },
+      { w: "reflect", p: "/rɪˈflekt/", m: "反思；反映", e: "Reflect on your actions at the end of the day." },
+      { w: "reliable", p: "/rɪˈlaɪəbl/", m: "可靠的", e: "A reliable routine is more useful than motivation." },
+      { w: "response", p: "/rɪˈspɑːns/", m: "反应；回应", e: "Do not let your response be driven by panic." },
+      { w: "routine", p: "/ruːˈtiːn/", m: "日常安排", e: "A simple routine can reduce mental pressure." },
+      { w: "significant", p: "/sɪɡˈnɪfɪkənt/", m: "重要的；显著的", e: "A significant change deserves careful review." },
+      { w: "strategy", p: "/ˈstrætədʒi/", m: "策略", e: "A strategy helps you act with discipline." },
+      { w: "sufficient", p: "/səˈfɪʃnt/", m: "足够的", e: "Sufficient practice builds confidence." },
+      { w: "sustain", p: "/səˈsteɪn/", m: "维持；支撑", e: "A habit must be easy enough to sustain." },
+      { w: "tendency", p: "/ˈtendənsi/", m: "倾向", e: "You may have a tendency to check news too often." },
+      { w: "track", p: "/træk/", m: "追踪；轨道", e: "Track your behavior to understand yourself." },
+      { w: "transfer", p: "/trænsˈfɜːr/", m: "转移；迁移", e: "Transfer what you learn into real action." },
+      { w: "trend", p: "/trend/", m: "趋势", e: "The trend matters more than daily noise." },
+      { w: "uncertain", p: "/ʌnˈsɜːrtn/", m: "不确定的", e: "When the market is uncertain, control your position." },
+      { w: "valid", p: "/ˈvælɪd/", m: "有效的；合理的", e: "A valid reason is better than a sudden impulse." },
+      { w: "variable", p: "/ˈveriəbl/", m: "变量；可变的", e: "Energy is an important variable in performance." }
+    ];
+
+    function toast(message) {
+      const el = document.getElementById("toast");
+      el.innerText = message;
+      el.classList.add("show");
+      setTimeout(() => el.classList.remove("show"), 1800);
+    }
+
+    function switchTab(name, btn) {
+      document.querySelectorAll(".tab-page").forEach(page => page.classList.remove("active"));
+      document.getElementById(`tab-${name}`).classList.add("active");
+
+      document.querySelectorAll(".nav-btn").forEach(item => item.classList.remove("active"));
+      btn.classList.add("active");
+
+      if (name === "records") {
+        updateSummary();
+        setTimeout(renderCharts, 80);
+      }
+
+      if (name === "study") {
+        renderWords();
+      }
+    }
 
     function setChoice(key, value, el) {
       todayChoice[key] = value;
-
       const group = el.parentElement;
       const chips = group.querySelectorAll(".chip");
       chips.forEach(chip => chip.classList.remove("active"));
@@ -466,46 +879,60 @@
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     }
 
+    function getValue(id) {
+      return document.getElementById(id).value.trim();
+    }
+
+    function setValue(id, value) {
+      document.getElementById(id).value = value;
+    }
+
     function saveRecord() {
+      const studyNote = getValue("studyNote");
+      const investNote = getValue("investNote");
+      const otherNote = getValue("otherNote");
+
       if (
         !todayChoice.studyStatus &&
         !todayChoice.investAction &&
         !todayChoice.sleep &&
         !todayChoice.energy &&
         !todayChoice.mood &&
-        !studyNote.value.trim() &&
-        !investNote.value.trim() &&
-        !otherNote.value.trim()
+        !studyNote &&
+        !investNote &&
+        !otherNote
       ) {
-        alert("今天还没有选择或填写内容哦。");
+        toast("今天还没有选择或填写内容哦");
         return;
       }
 
       const data = getData();
+      const now = new Date();
 
       const record = {
-        date: new Date().toLocaleDateString(),
-        dateTime: new Date().toLocaleString(),
+        date: now.toLocaleDateString(),
+        dateTime: now.toLocaleString(),
         studyStatus: todayChoice.studyStatus,
         investAction: todayChoice.investAction,
         sleep: todayChoice.sleep,
         energy: Number(todayChoice.energy) || 0,
         mood: todayChoice.mood,
-        studyNote: studyNote.value.trim(),
-        investNote: investNote.value.trim(),
-        otherNote: otherNote.value.trim()
+        studyNote,
+        investNote,
+        otherNote
       };
 
       data.push(record);
       saveData(data);
-
-      alert("已保存今天记录");
+      toast("已保存今天记录");
+      updateSummary();
       renderCharts();
     }
 
     function showRecent() {
       const data = getData();
       const recent = data.slice(-7).reverse();
+      const output = document.getElementById("output");
 
       if (!recent.length) {
         output.innerText = "暂无记录。";
@@ -523,6 +950,7 @@
 
     function smartReview() {
       const data = getData();
+      const output = document.getElementById("output");
 
       if (!data.length) {
         output.innerText = "暂无数据，先保存今天记录再复盘。";
@@ -531,7 +959,6 @@
 
       const last = data[data.length - 1];
       const recent7 = data.slice(-7);
-
       const avgEnergy = recent7.reduce((sum, x) => sum + (x.energy || 0), 0) / recent7.length;
 
       let review = `☀️ 每日决策 · 智能复盘
@@ -576,9 +1003,9 @@
         review += "- 今天学习未启动，建议明天把门槛压低，只求先开始。\n";
       }
 
-      review += `\n三、近7天趋势
-- 最近7天平均精力：${avgEnergy.toFixed(1)}
-- 记录天数：${recent7.length}
+      review += `\n三、近7条趋势
+- 最近7条平均精力：${avgEnergy.toFixed(1)}
+- 记录条数：${recent7.length}
 `;
 
       const actionDays = recent7.filter(x => ["买入", "卖出", "加仓", "减仓"].includes(x.investAction)).length;
@@ -628,13 +1055,24 @@
         mood: ""
       };
 
-      document.querySelectorAll(".chip").forEach(chip => chip.classList.remove("active"));
+      document.querySelectorAll("#tab-home .chip").forEach(chip => chip.classList.remove("active"));
 
-      studyNote.value = "";
-      investNote.value = "";
-      otherNote.value = "";
+      setValue("studyNote", "");
+      setValue("investNote", "");
+      setValue("otherNote", "");
 
-      output.innerText = "当前输入已清空。";
+      toast("当前输入已清空");
+    }
+
+    function updateSummary() {
+      const data = getData();
+      const recent7 = data.slice(-7);
+      const avg = recent7.length ? recent7.reduce((sum, x) => sum + (x.energy || 0), 0) / recent7.length : 0;
+      const actions = recent7.filter(x => ["买入", "卖出", "加仓", "减仓"].includes(x.investAction)).length;
+
+      document.getElementById("totalDays").innerText = data.length;
+      document.getElementById("avgEnergy").innerText = avg.toFixed(1);
+      document.getElementById("actionCount").innerText = actions;
     }
 
     function renderCharts() {
@@ -654,6 +1092,10 @@
       };
 
       const actionData = recent.map(item => actionMap[item.investAction] ?? 0);
+
+      if (typeof Chart === "undefined") {
+        return;
+      }
 
       if (energyChartInstance) {
         energyChartInstance.destroy();
@@ -722,7 +1164,75 @@
       });
     }
 
-    renderCharts();
+    function saveMarketNote() {
+      localStorage.setItem(MARKET_NOTE_KEY, document.getElementById("marketNote").value.trim());
+      toast("市场备注已保存");
+    }
+
+    function loadMarketNote() {
+      document.getElementById("marketNote").value = localStorage.getItem(MARKET_NOTE_KEY) || "";
+      toast("已读取市场备注");
+    }
+
+    function todayKey() {
+      return new Date().toLocaleDateString();
+    }
+
+    function getDailyWords() {
+      const base = new Date("2026-01-01T00:00:00");
+      const now = new Date();
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const diff = Math.floor((today - base) / 86400000);
+      const start = ((diff * 10 + wordOffset) % wordBank.length + wordBank.length) % wordBank.length;
+
+      const result = [];
+      for (let i = 0; i < 10; i++) {
+        result.push(wordBank[(start + i) % wordBank.length]);
+      }
+
+      return result;
+    }
+
+    function renderWords() {
+      const list = document.getElementById("wordList");
+      const words = getDailyWords();
+      document.getElementById("wordDate").innerText = todayKey();
+
+      list.innerHTML = words.map((item, index) => `
+        <div class="word-card">
+          <div class="word-head">
+            <div class="word-main">${index + 1}. ${item.w}</div>
+            <div class="phonetic">${item.p}</div>
+          </div>
+          <div class="meaning">${item.m}</div>
+          <div class="example">${item.e}</div>
+        </div>
+      `).join("");
+
+      updateWordStatus();
+    }
+
+    function markWordsDone() {
+      const data = JSON.parse(localStorage.getItem(WORD_DONE_KEY) || "{}");
+      data[todayKey()] = true;
+      localStorage.setItem(WORD_DONE_KEY, JSON.stringify(data));
+      updateWordStatus();
+      toast("今日10词已完成");
+    }
+
+    function updateWordStatus() {
+      const data = JSON.parse(localStorage.getItem(WORD_DONE_KEY) || "{}");
+      document.getElementById("wordStatus").innerText = data[todayKey()] ? "今日已完成10词打卡。" : "今日还未打卡。";
+    }
+
+    function shiftWords() {
+      wordOffset += 10;
+      renderWords();
+      toast("已换一组单词");
+    }
+
+    updateSummary();
+    renderWords();
   </script>
 </body>
 </html>
