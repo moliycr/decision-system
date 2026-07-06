@@ -3,14 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>每日决策</title>
+  <title>给婷婷的每日20单词</title>
 
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="每日决策">
+  <meta name="apple-mobile-web-app-title" content="每日20单词">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="theme-color" content="#ffbf47">
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta name="theme-color" content="#ffb6c8">
 
   <style>
     * {
@@ -19,73 +17,75 @@
     }
 
     html {
-      background: #f6f8fb;
+      background: #fff7f8;
     }
 
     body {
       margin: 0;
       min-height: 100vh;
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: #2b2b2b;
       background:
-        radial-gradient(circle at 88% 3%, rgba(255, 205, 92, 0.48), transparent 30%),
-        radial-gradient(circle at 5% 88%, rgba(115, 195, 255, 0.25), transparent 34%),
-        linear-gradient(180deg, #fff4c8 0%, #fffdf4 28%, #f6f8fb 100%);
-      color: #1f2937;
-      padding: env(safe-area-inset-top) 10px calc(86px + env(safe-area-inset-bottom));
+        radial-gradient(circle at 86% 4%, rgba(255, 191, 211, 0.55), transparent 30%),
+        radial-gradient(circle at 8% 88%, rgba(255, 221, 161, 0.45), transparent 32%),
+        linear-gradient(180deg, #fff1f4 0%, #fff9f2 42%, #fff7f8 100%);
+      padding: env(safe-area-inset-top) 10px calc(92px + env(safe-area-inset-bottom));
     }
 
     .app {
-      max-width: 780px;
+      max-width: 820px;
       margin: 0 auto;
     }
 
     .hero {
       margin: 14px 0 16px;
-      padding: 24px 20px 20px;
-      border-radius: 30px;
-      background: linear-gradient(135deg, #ffe08a 0%, #ffbb55 58%, #ffd56d 100%);
-      box-shadow: 0 18px 38px rgba(255, 180, 70, 0.32);
-      color: #4a3100;
+      padding: 25px 20px 20px;
+      border-radius: 32px;
+      background: linear-gradient(135deg, #ffd6e2 0%, #ffb6c8 48%, #ffd899 100%);
+      color: #623142;
+      box-shadow: 0 18px 38px rgba(255, 151, 184, 0.26);
       position: relative;
       overflow: hidden;
     }
 
     .hero::before {
-      content: "☀️";
+      content: "🌷";
       position: absolute;
       right: 20px;
       top: 18px;
       font-size: 44px;
-      opacity: 0.9;
+      opacity: 0.92;
     }
 
     .hero::after {
       content: "";
       position: absolute;
-      right: -54px;
-      bottom: -58px;
+      right: -48px;
+      bottom: -56px;
       width: 170px;
       height: 170px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.28);
     }
 
     .hero h1 {
       margin: 0;
-      font-size: 30px;
-      font-weight: 900;
+      max-width: 78%;
+      font-size: 29px;
+      line-height: 1.14;
+      font-weight: 950;
       letter-spacing: -0.8px;
       position: relative;
       z-index: 1;
     }
 
     .hero p {
-      margin: 9px 0 0;
+      margin: 10px 0 0;
       max-width: 82%;
       font-size: 14px;
-      line-height: 1.6;
-      font-weight: 650;
-      color: rgba(74, 49, 0, 0.75);
+      line-height: 1.65;
+      color: rgba(98, 49, 66, 0.78);
+      font-weight: 680;
       position: relative;
       z-index: 1;
     }
@@ -104,8 +104,8 @@
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.45);
       font-size: 12px;
-      font-weight: 760;
-      color: rgba(74, 49, 0, 0.78);
+      font-weight: 820;
+      color: rgba(98, 49, 66, 0.82);
     }
 
     .tab-page {
@@ -131,13 +131,11 @@
     .card {
       margin: 14px 0;
       padding: 17px;
-      border-radius: 26px;
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.9);
       box-shadow:
-        0 14px 34px rgba(31, 41, 55, 0.08),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.78);
+        0 14px 34px rgba(94, 38, 61, 0.07),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.84);
     }
 
     .card-title {
@@ -151,92 +149,105 @@
     .card-title h2 {
       margin: 0;
       font-size: 19px;
-      font-weight: 850;
+      font-weight: 900;
       letter-spacing: -0.3px;
-      color: #111827;
+      color: #2f2f36;
     }
 
     .card-title span {
       font-size: 12px;
-      color: #8b93a1;
-      font-weight: 650;
+      color: #9b8190;
+      font-weight: 720;
       white-space: nowrap;
     }
 
-    .section-title {
-      margin: 15px 0 9px;
-      font-size: 14px;
-      font-weight: 820;
-      color: #4b5563;
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 8px;
     }
 
-    .chip-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
+    .stat-card {
+      padding: 14px 10px;
+      border-radius: 22px;
+      background: #fff8fa;
+      box-shadow: inset 0 0 0 1px rgba(255, 183, 205, 0.25);
+    }
+
+    .stat-num {
+      font-size: 24px;
+      font-weight: 950;
+      color: #5d2d40;
       margin-bottom: 4px;
     }
 
-    .chip {
-      width: auto;
-      margin: 0;
-      padding: 10px 14px;
-      border: none;
-      border-radius: 999px;
-      background: #f4f7fb;
-      color: #4b5563;
-      font-size: 14px;
-      font-weight: 720;
-      box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.16);
-      cursor: pointer;
-      transition: 0.18s ease;
+    .stat-label {
+      font-size: 12px;
+      color: #9b8190;
+      font-weight: 760;
     }
 
-    .chip.active {
-      color: #4a3100;
-      background: linear-gradient(135deg, #ffd66d, #ffad3d);
-      box-shadow: 0 9px 18px rgba(255, 174, 61, 0.30);
-      transform: translateY(-1px);
+    .encourage {
+      padding: 16px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #fff5f8, #fff9ee);
+      line-height: 1.8;
+      color: #603044;
+      font-size: 15px;
+      font-weight: 680;
+      box-shadow: inset 0 0 0 1px rgba(255, 183, 205, 0.25);
+    }
+
+    .message-box {
+      padding: 16px;
+      border-radius: 24px;
+      background: #fffaf0;
+      color: #60412e;
+      font-size: 15px;
+      line-height: 1.8;
+      font-weight: 700;
+      box-shadow: inset 0 0 0 1px rgba(255, 213, 156, 0.36);
     }
 
     textarea,
     input {
       width: 100%;
-      margin: 7px 0 4px;
+      margin: 8px 0 4px;
       padding: 13px 14px;
       border: none;
       outline: none;
       border-radius: 18px;
-      background: #f7f9fc;
-      color: #1f2937;
+      background: #fff7fa;
+      color: #2b2b2b;
       font-size: 15px;
       line-height: 1.6;
-      box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.18);
+      box-shadow: inset 0 0 0 1px rgba(255, 183, 205, 0.22);
     }
 
     textarea {
-      min-height: 84px;
+      min-height: 78px;
       resize: vertical;
     }
 
-    textarea::placeholder,
-    input::placeholder {
-      color: #a0a8b5;
+    input::placeholder,
+    textarea::placeholder {
+      color: #b49aaa;
     }
 
-    textarea:focus,
-    input:focus {
+    input:focus,
+    textarea:focus {
       background: #ffffff;
       box-shadow:
-        inset 0 0 0 1.5px rgba(255, 172, 51, 0.76),
-        0 0 0 4px rgba(255, 198, 91, 0.18);
+        inset 0 0 0 1.5px rgba(255, 159, 190, 0.75),
+        0 0 0 4px rgba(255, 183, 205, 0.18);
     }
 
     .button-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
-      margin-top: 17px;
+      margin-top: 14px;
     }
 
     .btn {
@@ -245,7 +256,7 @@
       border-radius: 18px;
       padding: 14px 12px;
       font-size: 15px;
-      font-weight: 850;
+      font-weight: 900;
       cursor: pointer;
       transition: 0.15s ease;
     }
@@ -255,145 +266,215 @@
     }
 
     .btn-primary {
-      color: #4a3100;
-      background: linear-gradient(135deg, #ffd56a, #ffad3d);
-      box-shadow: 0 11px 24px rgba(255, 174, 61, 0.28);
+      color: #5d2d40;
+      background: linear-gradient(135deg, #ffc8d8, #ff9fbd);
+      box-shadow: 0 11px 24px rgba(255, 151, 184, 0.27);
     }
 
     .btn-secondary {
-      color: #34506f;
-      background: rgba(255, 255, 255, 0.86);
+      color: #68465a;
+      background: rgba(255, 255, 255, 0.9);
       box-shadow:
-        0 8px 18px rgba(31, 41, 55, 0.06),
-        inset 0 0 0 1px rgba(148, 163, 184, 0.18);
+        0 8px 18px rgba(94, 38, 61, 0.05),
+        inset 0 0 0 1px rgba(255, 183, 205, 0.26);
     }
 
     .hint {
       margin-top: 11px;
-      color: #7b8494;
+      color: #9b8190;
       font-size: 12px;
-      line-height: 1.6;
-    }
-
-    .output {
-      min-height: 136px;
-      margin: 0;
-      padding: 15px;
-      border-radius: 20px;
-      white-space: pre-wrap;
-      word-break: break-word;
-      line-height: 1.75;
-      font-size: 14px;
-      color: #374151;
-      background: #fffaf0;
-      box-shadow: inset 0 0 0 1px rgba(255, 203, 125, 0.34);
-    }
-
-    canvas {
-      width: 100% !important;
-      max-height: 280px;
-      margin-top: 6px;
-      padding: 10px;
-      border-radius: 20px;
-      background: #ffffff;
-      box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.14);
-    }
-
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin: 8px 0 12px;
-    }
-
-    .summary-card {
-      padding: 13px;
-      border-radius: 20px;
-      background: #f8fbff;
-      box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.12);
-    }
-
-    .summary-card .num {
-      font-size: 22px;
-      font-weight: 900;
-      color: #111827;
-      margin-bottom: 4px;
-    }
-
-    .summary-card .label {
-      font-size: 12px;
-      color: #7b8494;
-      font-weight: 700;
-    }
-
-    .market-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-
-    .market-note {
-      font-size: 12px;
-      color: #7b8494;
       line-height: 1.7;
-      margin: 8px 0 0;
-    }
-
-    .tradingview-widget-container {
-      border-radius: 22px;
-      overflow: hidden;
-      background: #ffffff;
-      box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.14);
-      min-height: 430px;
-    }
-
-    .word-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
     }
 
     .word-card {
-      border-radius: 20px;
+      margin: 12px 0;
+      padding: 16px;
+      border-radius: 26px;
       background: #ffffff;
-      padding: 14px;
       box-shadow:
-        0 8px 18px rgba(31, 41, 55, 0.045),
-        inset 0 0 0 1px rgba(148, 163, 184, 0.12);
+        0 10px 22px rgba(94, 38, 61, 0.055),
+        inset 0 0 0 1px rgba(255, 183, 205, 0.18);
     }
 
-    .word-head {
+    .word-top {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
-      gap: 10px;
-      margin-bottom: 7px;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 8px;
     }
 
     .word-main {
-      font-size: 19px;
-      font-weight: 900;
-      color: #111827;
+      font-size: 23px;
+      font-weight: 950;
+      color: #292933;
+      letter-spacing: -0.3px;
+      cursor: pointer;
     }
 
     .phonetic {
-      font-size: 12px;
-      color: #8b93a1;
+      margin-top: 3px;
+      font-size: 13px;
+      color: #9b8190;
       font-weight: 700;
-      white-space: nowrap;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: #fff3f7;
+      color: #8a5267;
+      font-size: 12px;
+      font-weight: 850;
     }
 
     .meaning {
-      font-size: 14px;
-      font-weight: 760;
-      color: #4a3100;
-      margin-bottom: 6px;
+      margin-top: 12px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: #5d2d40;
+      font-weight: 820;
     }
 
     .example {
-      font-size: 13px;
-      line-height: 1.6;
+      margin-top: 8px;
+      padding: 12px;
+      border-radius: 18px;
+      background: #fff9fb;
       color: #4b5563;
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .word-actions {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 13px;
+    }
+
+    .mini-btn {
+      border: none;
+      border-radius: 15px;
+      padding: 10px 8px;
+      font-size: 13px;
+      font-weight: 850;
+      color: #5d2d40;
+      background: #fff1f5;
+      cursor: pointer;
+    }
+
+    .mini-btn.known {
+      background: #ecfff4;
+      color: #256044;
+    }
+
+    .mini-btn.unknown {
+      background: #fff0ec;
+      color: #9b3b2f;
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 7px;
+      margin-top: 12px;
+    }
+
+    .weekday {
+      text-align: center;
+      font-size: 12px;
+      color: #a58a99;
+      font-weight: 850;
+      padding: 4px 0;
+    }
+
+    .day {
+      min-height: 38px;
+      border-radius: 14px;
+      background: #fff7fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: #806071;
+      box-shadow: inset 0 0 0 1px rgba(255, 183, 205, 0.18);
+      position: relative;
+    }
+
+    .day.empty {
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .day.done {
+      background: linear-gradient(135deg, #ffc8d8, #ff9fbd);
+      color: #5d2d40;
+      box-shadow: 0 8px 16px rgba(255, 151, 184, 0.22);
+    }
+
+    .day.today {
+      outline: 2px solid rgba(255, 159, 190, 0.7);
+    }
+
+    .quiz-card {
+      padding: 15px;
+      margin: 12px 0;
+      border-radius: 24px;
+      background: #ffffff;
+      box-shadow:
+        0 10px 22px rgba(94, 38, 61, 0.055),
+        inset 0 0 0 1px rgba(255, 183, 205, 0.18);
+    }
+
+    .quiz-word {
+      font-size: 22px;
+      font-weight: 950;
+      color: #292933;
+      margin-bottom: 10px;
+    }
+
+    .option-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .option {
+      text-align: left;
+      border: none;
+      border-radius: 16px;
+      padding: 12px;
+      background: #fff7fa;
+      color: #4b3944;
+      font-size: 14px;
+      font-weight: 750;
+      cursor: pointer;
+      box-shadow: inset 0 0 0 1px rgba(255, 183, 205, 0.18);
+    }
+
+    .option.correct {
+      background: #eafff2;
+      color: #256044;
+    }
+
+    .option.wrong {
+      background: #fff0ec;
+      color: #9b3b2f;
+    }
+
+    .wrong-empty {
+      padding: 18px;
+      border-radius: 22px;
+      background: #fff8fa;
+      color: #9b8190;
+      font-size: 14px;
+      line-height: 1.7;
+      text-align: center;
+      font-weight: 760;
     }
 
     .bottom-nav {
@@ -403,13 +484,11 @@
       transform: translateX(-50%);
       width: min(760px, calc(100% - 22px));
       padding: 8px 9px calc(8px + env(safe-area-inset-bottom));
-      border-radius: 26px;
-      background: rgba(255, 255, 255, 0.86);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      border-radius: 27px;
+      background: rgba(255, 255, 255, 0.92);
       box-shadow:
-        0 16px 40px rgba(31, 41, 55, 0.16),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.72);
+        0 16px 40px rgba(94, 38, 61, 0.14),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.78);
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 6px;
@@ -421,9 +500,9 @@
       background: transparent;
       border-radius: 19px;
       padding: 9px 4px 8px;
-      color: #7b8494;
+      color: #9b8190;
       font-size: 12px;
-      font-weight: 800;
+      font-weight: 850;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -437,22 +516,22 @@
     }
 
     .nav-btn.active {
-      color: #4a3100;
-      background: linear-gradient(135deg, rgba(255, 216, 110, 0.92), rgba(255, 174, 61, 0.88));
-      box-shadow: 0 8px 18px rgba(255, 174, 61, 0.22);
+      color: #5d2d40;
+      background: linear-gradient(135deg, rgba(255, 207, 220, 0.95), rgba(255, 166, 194, 0.9));
+      box-shadow: 0 8px 18px rgba(255, 151, 184, 0.2);
     }
 
     .toast {
       position: fixed;
       left: 50%;
-      bottom: calc(94px + env(safe-area-inset-bottom));
+      bottom: calc(96px + env(safe-area-inset-bottom));
       transform: translateX(-50%) translateY(12px);
       padding: 10px 14px;
       border-radius: 999px;
-      background: rgba(17, 24, 39, 0.86);
+      background: rgba(48, 36, 43, 0.88);
       color: #ffffff;
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 760;
       opacity: 0;
       pointer-events: none;
       transition: 0.2s ease;
@@ -471,12 +550,11 @@
       }
 
       .hero {
-        border-radius: 28px;
-        padding: 23px 18px 19px;
+        border-radius: 29px;
       }
 
       .hero h1 {
-        font-size: 28px;
+        font-size: 27px;
       }
 
       .hero p {
@@ -484,22 +562,10 @@
         font-size: 13px;
       }
 
-      .card {
-        border-radius: 24px;
-        padding: 16px;
-      }
-
+      .stats-grid,
       .button-grid,
-      .summary-grid {
+      .word-actions {
         grid-template-columns: 1fr;
-      }
-
-      .chip {
-        padding: 10px 13px;
-      }
-
-      .bottom-nav {
-        bottom: 8px;
       }
     }
   </style>
@@ -508,234 +574,127 @@
 <body>
   <main class="app">
     <section class="hero">
-      <h1>每日决策</h1>
-      <p>每天 1 分钟，记录学习、投资和状态，让选择更清晰。</p>
+      <h1>给婷婷的每日20单词</h1>
+      <p>每天 20 个 IELTS 词汇，慢慢来，也是在靠近目标分数。</p>
       <div class="badges">
-        <div class="badge">轻记录</div>
-        <div class="badge">智能复盘</div>
-        <div class="badge">趋势追踪</div>
+        <div class="badge">雅思词汇</div>
+        <div class="badge">点击读音</div>
+        <div class="badge">打卡日历</div>
       </div>
     </section>
 
     <section id="tab-home" class="tab-page active">
       <section class="card">
         <div class="card-title">
-          <h2>📌 今日记录</h2>
-          <span>点击选择即可</span>
+          <h2>🌷 今日任务</h2>
+          <span id="todayText">今天</span>
         </div>
 
-        <div class="section-title">📚 学习状态</div>
-        <div class="chip-group">
-          <button class="chip" onclick="setChoice('studyStatus','高效完成', this)">高效完成</button>
-          <button class="chip" onclick="setChoice('studyStatus','完成部分', this)">完成部分</button>
-          <button class="chip" onclick="setChoice('studyStatus','只看没练', this)">只看没练</button>
-          <button class="chip" onclick="setChoice('studyStatus','未开始', this)">未开始</button>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-num" id="todayKnown">0</div>
+            <div class="stat-label">今日认识</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" id="todayUnknown">0</div>
+            <div class="stat-label">今日待复习</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" id="streakCount">0</div>
+            <div class="stat-label">连续打卡</div>
+          </div>
         </div>
-
-        <div class="section-title">💰 投资操作</div>
-        <div class="chip-group">
-          <button class="chip" onclick="setChoice('investAction','买入', this)">买入</button>
-          <button class="chip" onclick="setChoice('investAction','卖出', this)">卖出</button>
-          <button class="chip" onclick="setChoice('investAction','加仓', this)">加仓</button>
-          <button class="chip" onclick="setChoice('investAction','减仓', this)">减仓</button>
-          <button class="chip" onclick="setChoice('investAction','观望', this)">观望</button>
-          <button class="chip" onclick="setChoice('investAction','无操作', this)">无操作</button>
-        </div>
-
-        <div class="section-title">😴 睡眠状态</div>
-        <div class="chip-group">
-          <button class="chip" onclick="setChoice('sleep','好', this)">好</button>
-          <button class="chip" onclick="setChoice('sleep','一般', this)">一般</button>
-          <button class="chip" onclick="setChoice('sleep','差', this)">差</button>
-        </div>
-
-        <div class="section-title">⚡ 精力水平</div>
-        <div class="chip-group">
-          <button class="chip" onclick="setChoice('energy','1', this)">1</button>
-          <button class="chip" onclick="setChoice('energy','2', this)">2</button>
-          <button class="chip" onclick="setChoice('energy','3', this)">3</button>
-          <button class="chip" onclick="setChoice('energy','4', this)">4</button>
-          <button class="chip" onclick="setChoice('energy','5', this)">5</button>
-          <button class="chip" onclick="setChoice('energy','6', this)">6</button>
-          <button class="chip" onclick="setChoice('energy','7', this)">7</button>
-          <button class="chip" onclick="setChoice('energy','8', this)">8</button>
-          <button class="chip" onclick="setChoice('energy','9', this)">9</button>
-          <button class="chip" onclick="setChoice('energy','10', this)">10</button>
-        </div>
-
-        <div class="section-title">😊 今日心情</div>
-        <div class="chip-group">
-          <button class="chip" onclick="setChoice('mood','平静', this)">平静</button>
-          <button class="chip" onclick="setChoice('mood','积极', this)">积极</button>
-          <button class="chip" onclick="setChoice('mood','焦虑', this)">焦虑</button>
-          <button class="chip" onclick="setChoice('mood','疲惫', this)">疲惫</button>
-          <button class="chip" onclick="setChoice('mood','烦躁', this)">烦躁</button>
-        </div>
-
-        <div class="section-title">📝 学习补充，可不填</div>
-        <textarea id="studyNote" placeholder="例如：刷了10道言语，背了30个雅思单词"></textarea>
-
-        <div class="section-title">📝 投资补充，可不填</div>
-        <textarea id="investNote" placeholder="例如：今天主要观望科技，没追高"></textarea>
-
-        <div class="section-title">📝 其他备注，可不填</div>
-        <textarea id="otherNote" placeholder="例如：午睡后很昏沉，晚上状态一般"></textarea>
 
         <div class="button-grid">
-          <button class="btn btn-primary" onclick="saveRecord()">保存今天</button>
-          <button class="btn btn-secondary" onclick="clearToday()">清空当前</button>
+          <button class="btn btn-primary" onclick="switchTabByName('words')">开始背今日20词</button>
+          <button class="btn btn-secondary" onclick="completeToday()">完成今日打卡</button>
         </div>
 
         <div class="hint">
-          数据保存在当前浏览器本地。换设备或清理浏览器数据后，本地记录可能会丢失。
+          建议：先全部听一遍读音，再背意思，最后去“测验”做一轮选择题。
         </div>
       </section>
-    </section>
 
-    <section id="tab-records" class="tab-page">
       <section class="card">
         <div class="card-title">
-          <h2>📒 记录复盘</h2>
-          <span>趋势 + 复盘</span>
+          <h2>💌 今日鼓励</h2>
+          <span>给婷婷</span>
         </div>
+        <div class="encourage" id="encourageText"></div>
+      </section>
 
-        <div class="summary-grid">
-          <div class="summary-card">
-            <div class="num" id="totalDays">0</div>
-            <div class="label">记录条数</div>
-          </div>
-          <div class="summary-card">
-            <div class="num" id="avgEnergy">0.0</div>
-            <div class="label">近7条均精力</div>
-          </div>
-          <div class="summary-card">
-            <div class="num" id="actionCount">0</div>
-            <div class="label">近7条投资动作</div>
-          </div>
+      <section class="card">
+        <div class="card-title">
+          <h2>📝 男朋友留言区</h2>
+          <span>可以自己加</span>
         </div>
-
+        <div class="message-box" id="boyfriendMessage"></div>
+        <textarea id="newMessage" placeholder="新增一句留言，比如：今天不用很拼，完成20个就已经很棒了。"></textarea>
         <div class="button-grid">
-          <button class="btn btn-secondary" onclick="showRecent()">查看最近7条</button>
-          <button class="btn btn-primary" onclick="smartReview()">智能复盘</button>
+          <button class="btn btn-primary" onclick="saveMessage()">保存留言</button>
+          <button class="btn btn-secondary" onclick="nextMessage()">换一句看看</button>
         </div>
       </section>
 
       <section class="card">
         <div class="card-title">
-          <h2>🤖 智能输出</h2>
-          <span>复盘 / 历史</span>
+          <h2>📅 打卡日历</h2>
+          <span id="calendarMonth"></span>
         </div>
-        <pre class="output" id="output">这里会显示最近记录或智能复盘结果。</pre>
-      </section>
-
-      <section class="card">
-        <div class="card-title">
-          <h2>📈 精力趋势</h2>
-          <span>近14条记录</span>
-        </div>
-        <canvas id="energyChart"></canvas>
-      </section>
-
-      <section class="card">
-        <div class="card-title">
-          <h2>📊 行为趋势</h2>
-          <span>1=有投资动作</span>
-        </div>
-        <canvas id="actionChart"></canvas>
+        <div class="calendar" id="calendar"></div>
       </section>
     </section>
 
-    <section id="tab-info" class="tab-page">
+    <section id="tab-words" class="tab-page">
       <section class="card">
         <div class="card-title">
-          <h2>🌍 实时信息</h2>
-          <span>黄金 / 股指</span>
+          <h2>📚 今日20词</h2>
+          <span>点单词可读音</span>
         </div>
-        <p class="market-note">这里嵌入行情组件。不同市场可能存在延迟，投资决策仍以券商、交易所或专业行情软件为准。</p>
-      </section>
-
-      <section class="card">
-        <div class="card-title">
-          <h2>📌 行情看板</h2>
-          <span>可左右滑动/点击查看</span>
-        </div>
-        <div class="market-grid">
-          <div class="tradingview-widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js" async>
-            {
-              "symbols": [
-                ["现货黄金", "OANDA:XAUUSD|1D"],
-                ["黄金期货", "TVC:GOLD|1D"],
-                ["上证指数", "SSE:000001|1D"],
-                ["沪深300", "SSE:000300|1D"],
-                ["纳斯达克100", "NASDAQ:NDX|1D"],
-                ["标普500", "SP:SPX|1D"]
-              ],
-              "chartOnly": false,
-              "width": "100%",
-              "height": "430",
-              "locale": "zh_CN",
-              "colorTheme": "light",
-              "autosize": true,
-              "showVolume": false,
-              "showMA": false,
-              "hideDateRanges": false,
-              "hideMarketStatus": false,
-              "hideSymbolLogo": false,
-              "scalePosition": "right",
-              "scaleMode": "Normal",
-              "fontFamily": "-apple-system, BlinkMacSystemFont, Trebuchet MS, Roboto, Ubuntu, sans-serif",
-              "fontSize": "10",
-              "noTimeScale": false,
-              "valuesTracking": "1",
-              "changeMode": "price-and-percent",
-              "chartType": "area"
-            }
-            </script>
-          </div>
-        </div>
-      </section>
-
-      <section class="card">
-        <div class="card-title">
-          <h2>📝 今日市场备注</h2>
-          <span>自己判断</span>
-        </div>
-        <textarea id="marketNote" placeholder="例如：黄金回调但主线未坏；A股科技高位，先看量能，不追消息。"></textarea>
         <div class="button-grid">
-          <button class="btn btn-primary" onclick="saveMarketNote()">保存备注</button>
-          <button class="btn btn-secondary" onclick="loadMarketNote()">读取备注</button>
+          <button class="btn btn-primary" onclick="speakAllToday()">顺序听一遍</button>
+          <button class="btn btn-secondary" onclick="resetTodayProgress()">重置今日标记</button>
         </div>
       </section>
+
+      <section id="wordList"></section>
     </section>
 
-    <section id="tab-study" class="tab-page">
+    <section id="tab-quiz" class="tab-page">
       <section class="card">
         <div class="card-title">
-          <h2>📚 今日10词</h2>
-          <span id="wordDate">每日更新</span>
+          <h2>🧪 今日测验</h2>
+          <span id="quizScore">未开始</span>
         </div>
-        <p class="market-note">每天固定 10 个词。先看英文回忆意思，再看释义和例句。</p>
+        <p class="hint">从今日20词里抽 10 个做选择题。选错会自动加入错词本。</p>
         <div class="button-grid">
-          <button class="btn btn-primary" onclick="markWordsDone()">完成今日10词</button>
-          <button class="btn btn-secondary" onclick="shiftWords()">换一组练习</button>
+          <button class="btn btn-primary" onclick="startQuiz()">开始测验</button>
+          <button class="btn btn-secondary" onclick="switchTabByName('wrong')">查看错词</button>
         </div>
-        <div class="hint" id="wordStatus">今日还未打卡。</div>
       </section>
 
-      <section class="card">
-        <div class="card-title">
-          <h2>🧠 单词卡片</h2>
-          <span>10 / day</span>
-        </div>
-        <div class="word-grid" id="wordList"></div>
-      </section>
+      <section id="quizList"></section>
     </section>
 
-    <div class="footer" style="text-align:center;color:#8a93a3;font-size:12px;line-height:1.7;margin:20px 0 8px;">
-      每日决策 v5.3<br>
-      记录、复盘、行情、学习，放进一个小 App
+    <section id="tab-wrong" class="tab-page">
+      <section class="card">
+        <div class="card-title">
+          <h2>📌 错词本</h2>
+          <span id="wrongCount">0个</span>
+        </div>
+        <p class="hint">“不认识”和“测验选错”的词会自动放进这里。复习熟了可以移除。</p>
+        <div class="button-grid">
+          <button class="btn btn-primary" onclick="renderWrongWords()">刷新错词</button>
+          <button class="btn btn-secondary" onclick="clearWrongWords()">清空错词本</button>
+        </div>
+      </section>
+
+      <section id="wrongList"></section>
+    </section>
+
+    <div style="text-align:center;color:#a58a99;font-size:12px;line-height:1.7;margin:20px 0 8px;">
+      给婷婷的每日20单词 v1.0<br>
+      每天20词，不求快，只求一直记得往前走
     </div>
   </main>
 
@@ -744,100 +703,267 @@
       <span class="icon">🏠</span>
       <span>首页</span>
     </button>
-    <button class="nav-btn" onclick="switchTab('records', this)">
-      <span class="icon">📒</span>
-      <span>记录</span>
-    </button>
-    <button class="nav-btn" onclick="switchTab('info', this)">
-      <span class="icon">🌍</span>
-      <span>信息</span>
-    </button>
-    <button class="nav-btn" onclick="switchTab('study', this)">
+    <button class="nav-btn" onclick="switchTab('words', this)">
       <span class="icon">📚</span>
-      <span>学习</span>
+      <span>背词</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('quiz', this)">
+      <span class="icon">🧪</span>
+      <span>测验</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab('wrong', this)">
+      <span class="icon">📌</span>
+      <span>错词</span>
     </button>
   </nav>
 
   <div class="toast" id="toast"></div>
 
   <script>
-    const STORAGE_KEY = "daily_decision_v52";
-    const MARKET_NOTE_KEY = "daily_decision_market_note";
-    const WORD_DONE_KEY = "daily_decision_words_done";
+    const APP_KEY = "tingting_ielts_words_v1";
+    const MESSAGE_KEY = "tingting_messages_v1";
 
-    let todayChoice = {
-      studyStatus: "",
-      investAction: "",
-      sleep: "",
-      energy: "",
-      mood: ""
-    };
-
-    let energyChartInstance = null;
-    let actionChartInstance = null;
     let wordOffset = 0;
+    let messageIndex = 0;
+    let currentQuiz = [];
+
+    const defaultMessages = [
+      "婷婷，今天不用学很多，把这20个词过一遍就很棒了。",
+      "背单词不是靠一天猛冲，是靠每天都和它见一面。",
+      "你不是记不住，只是还没重复到熟。今天再来一次就好。",
+      "今天完成20个词，离雅思7分又近一点点。",
+      "不用和别人比，今天比昨天多记住一个词就赢了。",
+      "如果今天很累，就慢慢读，慢慢记，不要给自己太大压力。",
+      "你认真学习的样子，真的很可爱。",
+      "今天这20个词，男朋友陪你一起拿下。"
+    ];
+
+    const encouragements = [
+      "今天也只要完成20个词就好，不用贪多。稳定，比爆发更重要。",
+      "单词不会马上变成熟人，但每天见一次，它迟早会认识你。",
+      "完成今天的小任务，就是在给未来的自己攒底气。",
+      "不要怕忘，忘了就再见一面。背单词本来就是重复的艺术。",
+      "今天先把20个词读顺，意思记个大概，也算完成一半。",
+      "雅思不是一天拿下的，但每一天都可以靠近一点。",
+      "今天可以慢一点，但别停。婷婷已经很棒了。",
+      "能坚持打开这个App，就已经比完全没开始强很多。"
+    ];
 
     const wordBank = [
-      { w: "abandon", p: "/əˈbændən/", m: "放弃；抛弃", e: "Do not abandon your plan just because progress is slow." },
-      { w: "accurate", p: "/ˈækjərət/", m: "准确的", e: "Accurate data helps us make better decisions." },
-      { w: "achieve", p: "/əˈtʃiːv/", m: "实现；达到", e: "Small steps can help you achieve a big goal." },
-      { w: "adapt", p: "/əˈdæpt/", m: "适应；调整", e: "You need to adapt your method when conditions change." },
-      { w: "adequate", p: "/ˈædɪkwət/", m: "足够的；合格的", e: "Adequate sleep is important for clear thinking." },
-      { w: "analyze", p: "/ˈænəlaɪz/", m: "分析", e: "We should analyze the reason before taking action." },
-      { w: "approach", p: "/əˈproʊtʃ/", m: "方法；接近", e: "This approach makes learning more efficient." },
-      { w: "assess", p: "/əˈses/", m: "评估", e: "Assess the risk before making an investment." },
-      { w: "assume", p: "/əˈsuːm/", m: "假设；认为", e: "Do not assume every market rumor is true." },
-      { w: "benefit", p: "/ˈbenɪfɪt/", m: "好处；受益", e: "Daily review can bring long-term benefits." },
-      { w: "capacity", p: "/kəˈpæsəti/", m: "能力；容量", e: "Your capacity improves when you train consistently." },
-      { w: "challenge", p: "/ˈtʃælɪndʒ/", m: "挑战", e: "The biggest challenge is to keep going." },
-      { w: "clarify", p: "/ˈklærɪfaɪ/", m: "澄清；明确", e: "Writing things down can clarify your thoughts." },
-      { w: "consistent", p: "/kənˈsɪstənt/", m: "持续的；一致的", e: "Consistent practice is better than sudden effort." },
-      { w: "construct", p: "/kənˈstrʌkt/", m: "建立；构建", e: "You can construct a better routine step by step." },
-      { w: "consume", p: "/kənˈsuːm/", m: "消耗；消费", e: "Too much information can consume your attention." },
-      { w: "context", p: "/ˈkɑːntekst/", m: "背景；语境", e: "A decision makes sense only in its context." },
-      { w: "decline", p: "/dɪˈklaɪn/", m: "下降；拒绝", e: "A decline in energy may affect performance." },
-      { w: "define", p: "/dɪˈfaɪn/", m: "定义；明确", e: "Define the problem before solving it." },
-      { w: "detect", p: "/dɪˈtekt/", m: "发现；察觉", e: "This tool helps detect repeated mistakes." },
-      { w: "efficient", p: "/ɪˈfɪʃnt/", m: "高效的", e: "An efficient learner reviews mistakes quickly." },
-      { w: "emerge", p: "/ɪˈmɜːrdʒ/", m: "出现；浮现", e: "A pattern may emerge after several days of records." },
-      { w: "evaluate", p: "/ɪˈvæljueɪt/", m: "评价；评估", e: "Evaluate your behavior instead of judging yourself." },
-      { w: "evidence", p: "/ˈevɪdəns/", m: "证据", e: "Make decisions based on evidence, not emotion." },
-      { w: "expand", p: "/ɪkˈspænd/", m: "扩大；扩展", e: "You can expand your vocabulary by reading daily." },
-      { w: "factor", p: "/ˈfæktər/", m: "因素", e: "Sleep is a key factor in decision quality." },
-      { w: "fluctuate", p: "/ˈflʌktʃueɪt/", m: "波动", e: "Markets fluctuate, so patience matters." },
-      { w: "focus", p: "/ˈfoʊkəs/", m: "专注；焦点", e: "Focus on the main trend, not every piece of news." },
-      { w: "generate", p: "/ˈdʒenəreɪt/", m: "产生；生成", e: "The system can generate a short review." },
-      { w: "identify", p: "/aɪˈdentɪfaɪ/", m: "识别；确认", e: "Identify your weak points before the next practice." },
-      { w: "impact", p: "/ˈɪmpækt/", m: "影响", e: "Bad sleep can have an impact on your mood." },
-      { w: "implement", p: "/ˈɪmplɪment/", m: "执行；实施", e: "A good plan matters only when you implement it." },
-      { w: "improve", p: "/ɪmˈpruːv/", m: "提高；改善", e: "Review helps improve future decisions." },
-      { w: "indicate", p: "/ˈɪndɪkeɪt/", m: "表明；显示", e: "Low energy may indicate the need for rest." },
-      { w: "invest", p: "/ɪnˈvest/", m: "投资；投入", e: "Invest time in skills that compound." },
-      { w: "maintain", p: "/meɪnˈteɪn/", m: "保持；维持", e: "Maintain a simple routine every day." },
-      { w: "monitor", p: "/ˈmɑːnɪtər/", m: "监测；跟踪", e: "Monitor your energy and behavior over time." },
-      { w: "objective", p: "/əbˈdʒektɪv/", m: "客观的；目标", e: "Try to make an objective decision." },
-      { w: "optimize", p: "/ˈɑːptɪmaɪz/", m: "优化", e: "You can optimize your day by reducing distractions." },
-      { w: "pattern", p: "/ˈpætərn/", m: "模式；规律", e: "Your records may show a useful pattern." },
-      { w: "priority", p: "/praɪˈɔːrəti/", m: "优先事项", e: "Set one clear priority for tomorrow." },
-      { w: "process", p: "/ˈprɑːses/", m: "过程；处理", e: "Learning is a process, not a single event." },
-      { w: "progress", p: "/ˈprɑːɡres/", m: "进步；进展", e: "Small progress is still progress." },
-      { w: "reduce", p: "/rɪˈduːs/", m: "减少", e: "Reduce noise before making decisions." },
-      { w: "reflect", p: "/rɪˈflekt/", m: "反思；反映", e: "Reflect on your actions at the end of the day." },
-      { w: "reliable", p: "/rɪˈlaɪəbl/", m: "可靠的", e: "A reliable routine is more useful than motivation." },
-      { w: "response", p: "/rɪˈspɑːns/", m: "反应；回应", e: "Do not let your response be driven by panic." },
-      { w: "routine", p: "/ruːˈtiːn/", m: "日常安排", e: "A simple routine can reduce mental pressure." },
-      { w: "significant", p: "/sɪɡˈnɪfɪkənt/", m: "重要的；显著的", e: "A significant change deserves careful review." },
-      { w: "strategy", p: "/ˈstrætədʒi/", m: "策略", e: "A strategy helps you act with discipline." },
-      { w: "sufficient", p: "/səˈfɪʃnt/", m: "足够的", e: "Sufficient practice builds confidence." },
-      { w: "sustain", p: "/səˈsteɪn/", m: "维持；支撑", e: "A habit must be easy enough to sustain." },
-      { w: "tendency", p: "/ˈtendənsi/", m: "倾向", e: "You may have a tendency to check news too often." },
-      { w: "track", p: "/træk/", m: "追踪；轨道", e: "Track your behavior to understand yourself." },
-      { w: "transfer", p: "/trænsˈfɜːr/", m: "转移；迁移", e: "Transfer what you learn into real action." },
-      { w: "trend", p: "/trend/", m: "趋势", e: "The trend matters more than daily noise." },
-      { w: "uncertain", p: "/ʌnˈsɜːrtn/", m: "不确定的", e: "When the market is uncertain, control your position." },
-      { w: "valid", p: "/ˈvælɪd/", m: "有效的；合理的", e: "A valid reason is better than a sudden impulse." },
-      { w: "variable", p: "/ˈveriəbl/", m: "变量；可变的", e: "Energy is an important variable in performance." }
+      { id:"abandon", w:"abandon", p:"/əˈbændən/", m:"放弃；抛弃", e:"Do not abandon your plan just because progress is slow.", tag:"IELTS基础" },
+      { id:"abstract", w:"abstract", p:"/ˈæbstrækt/", m:"抽象的；摘要", e:"Some IELTS reading passages contain abstract ideas.", tag:"阅读高频" },
+      { id:"access", w:"access", p:"/ˈækses/", m:"通道；获取；进入权", e:"Students need access to reliable learning materials.", tag:"写作高频" },
+      { id:"accommodate", w:"accommodate", p:"/əˈkɑːmədeɪt/", m:"容纳；为……提供住宿；适应", e:"The city must accommodate a growing population.", tag:"雅思高频" },
+      { id:"accurate", w:"accurate", p:"/ˈækjərət/", m:"准确的", e:"Accurate information helps people make better decisions.", tag:"听力常见" },
+      { id:"achieve", w:"achieve", p:"/əˈtʃiːv/", m:"实现；达到", e:"It takes time to achieve a high IELTS score.", tag:"写作高频" },
+      { id:"adapt", w:"adapt", p:"/əˈdæpt/", m:"适应；改编", e:"People must adapt to changes in technology.", tag:"写作高频" },
+      { id:"adequate", w:"adequate", p:"/ˈædɪkwət/", m:"足够的；合格的", e:"Adequate preparation can reduce exam anxiety.", tag:"雅思高频" },
+      { id:"administration", w:"administration", p:"/ədˌmɪnɪˈstreɪʃn/", m:"管理；行政部门", e:"The administration introduced new education policies.", tag:"阅读高频" },
+      { id:"affect", w:"affect", p:"/əˈfekt/", m:"影响", e:"Sleep can affect memory and concentration.", tag:"基础高频" },
+      { id:"allocate", w:"allocate", p:"/ˈæləkeɪt/", m:"分配；拨出", e:"Governments should allocate more money to public transport.", tag:"写作高频" },
+      { id:"alternative", w:"alternative", p:"/ɔːlˈtɜːrnətɪv/", m:"替代的；替代方案", e:"Cycling is an alternative to driving in cities.", tag:"雅思高频" },
+      { id:"ambiguous", w:"ambiguous", p:"/æmˈbɪɡjuəs/", m:"模糊的；有歧义的", e:"The instructions were ambiguous and caused confusion.", tag:"阅读高频" },
+      { id:"analyse", w:"analyse", p:"/ˈænəlaɪz/", m:"分析", e:"Students should analyse the question before writing.", tag:"写作高频" },
+      { id:"annual", w:"annual", p:"/ˈænjuəl/", m:"每年的；年度的", e:"The annual report shows a rise in tourism.", tag:"听力阅读" },
+      { id:"approach", w:"approach", p:"/əˈproʊtʃ/", m:"方法；接近；处理", e:"This approach is useful for IELTS reading.", tag:"高频核心" },
+      { id:"appropriate", w:"appropriate", p:"/əˈproʊpriət/", m:"合适的；恰当的", e:"It is important to choose an appropriate example.", tag:"写作高频" },
+      { id:"area", w:"area", p:"/ˈeriə/", m:"地区；领域；面积", e:"This area has experienced rapid development.", tag:"基础词" },
+      { id:"aspect", w:"aspect", p:"/ˈæspekt/", m:"方面", e:"One important aspect of education is creativity.", tag:"写作高频" },
+      { id:"assess", w:"assess", p:"/əˈses/", m:"评估；评价", e:"The test is designed to assess language ability.", tag:"雅思高频" },
+      { id:"assume", w:"assume", p:"/əˈsuːm/", m:"假设；认为", e:"Many people assume that technology saves time.", tag:"阅读高频" },
+      { id:"attitude", w:"attitude", p:"/ˈætɪtuːd/", m:"态度", e:"A positive attitude can improve learning efficiency.", tag:"口语写作" },
+      { id:"available", w:"available", p:"/əˈveɪləbl/", m:"可获得的；有空的", e:"Online courses are available to learners worldwide.", tag:"听力高频" },
+      { id:"benefit", w:"benefit", p:"/ˈbenɪfɪt/", m:"好处；使受益", e:"Regular review can bring long-term benefits.", tag:"写作高频" },
+      { id:"capacity", w:"capacity", p:"/kəˈpæsəti/", m:"容量；能力", e:"The stadium has a capacity of 50,000 people.", tag:"听力阅读" },
+      { id:"category", w:"category", p:"/ˈkætəɡɔːri/", m:"类别", e:"Words can be divided into different categories.", tag:"阅读高频" },
+      { id:"challenge", w:"challenge", p:"/ˈtʃælɪndʒ/", m:"挑战", e:"One major challenge is maintaining motivation.", tag:"写作口语" },
+      { id:"circumstance", w:"circumstance", p:"/ˈsɜːrkəmstæns/", m:"情况；环境", e:"People make different choices in different circumstances.", tag:"雅思高频" },
+      { id:"clarify", w:"clarify", p:"/ˈklærɪfaɪ/", m:"澄清；明确", e:"The teacher clarified the meaning of the word.", tag:"听力口语" },
+      { id:"coherent", w:"coherent", p:"/koʊˈhɪrənt/", m:"连贯的；条理清楚的", e:"A coherent essay is easier to understand.", tag:"写作高频" },
+      { id:"collapse", w:"collapse", p:"/kəˈlæps/", m:"倒塌；崩溃", e:"The old building collapsed after the storm.", tag:"阅读常见" },
+      { id:"commercial", w:"commercial", p:"/kəˈmɜːrʃl/", m:"商业的", e:"Commercial activities can influence local culture.", tag:"写作高频" },
+      { id:"community", w:"community", p:"/kəˈmjuːnəti/", m:"社区；群体", e:"Libraries play an important role in the community.", tag:"写作口语" },
+      { id:"compensate", w:"compensate", p:"/ˈkɑːmpenseɪt/", m:"补偿；弥补", e:"The company agreed to compensate the customers.", tag:"阅读高频" },
+      { id:"complex", w:"complex", p:"/ˈkɑːmpleks/", m:"复杂的", e:"Climate change is a complex global issue.", tag:"写作高频" },
+      { id:"component", w:"component", p:"/kəmˈpoʊnənt/", m:"组成部分；组件", e:"Vocabulary is an important component of language learning.", tag:"阅读高频" },
+      { id:"concentrate", w:"concentrate", p:"/ˈkɑːnsntreɪt/", m:"集中注意力", e:"It is hard to concentrate in a noisy room.", tag:"口语写作" },
+      { id:"concept", w:"concept", p:"/ˈkɑːnsept/", m:"概念", e:"The concept of sustainability is widely discussed.", tag:"阅读高频" },
+      { id:"conduct", w:"conduct", p:"/kənˈdʌkt/", m:"实施；进行；行为", e:"Researchers conducted a survey on student habits.", tag:"阅读写作" },
+      { id:"consequence", w:"consequence", p:"/ˈkɑːnsəkwens/", m:"结果；后果", e:"Pollution can have serious consequences.", tag:"写作高频" },
+      { id:"considerable", w:"considerable", p:"/kənˈsɪdərəbl/", m:"相当大的；重要的", e:"The project requires considerable investment.", tag:"阅读高频" },
+      { id:"consistent", w:"consistent", p:"/kənˈsɪstənt/", m:"一致的；持续的", e:"Consistent practice is better than short-term effort.", tag:"雅思高频" },
+      { id:"constitute", w:"constitute", p:"/ˈkɑːnstɪtuːt/", m:"构成；组成", e:"Older people constitute a large part of the population.", tag:"阅读高频" },
+      { id:"constraint", w:"constraint", p:"/kənˈstreɪnt/", m:"限制；约束", e:"Time is a major constraint for many learners.", tag:"高阶词" },
+      { id:"consume", w:"consume", p:"/kənˈsuːm/", m:"消耗；消费", e:"Modern lifestyles consume a lot of energy.", tag:"写作高频" },
+      { id:"contemporary", w:"contemporary", p:"/kənˈtempəreri/", m:"当代的；同时代的", e:"Contemporary cities face many environmental problems.", tag:"阅读写作" },
+      { id:"context", w:"context", p:"/ˈkɑːntekst/", m:"背景；语境", e:"The meaning depends on the context.", tag:"阅读核心" },
+      { id:"contrast", w:"contrast", p:"/ˈkɑːntræst/", m:"对比；差异", e:"The passage draws a contrast between two theories.", tag:"阅读高频" },
+      { id:"contribute", w:"contribute", p:"/kənˈtrɪbjuːt/", m:"贡献；导致", e:"Poor diet can contribute to health problems.", tag:"写作高频" },
+      { id:"controversial", w:"controversial", p:"/ˌkɑːntrəˈvɜːrʃl/", m:"有争议的", e:"Animal testing remains a controversial issue.", tag:"写作高频" },
+      { id:"conventional", w:"conventional", p:"/kənˈvenʃənl/", m:"传统的；常规的", e:"Online learning is different from conventional classrooms.", tag:"写作高频" },
+      { id:"cooperate", w:"cooperate", p:"/koʊˈɑːpəreɪt/", m:"合作", e:"Countries should cooperate to solve global problems.", tag:"写作高频" },
+      { id:"criteria", w:"criteria", p:"/kraɪˈtɪriə/", m:"标准；准则", e:"The essay is marked according to several criteria.", tag:"雅思核心" },
+      { id:"crucial", w:"crucial", p:"/ˈkruːʃl/", m:"关键的；至关重要的", e:"Vocabulary is crucial for reading comprehension.", tag:"写作高频" },
+      { id:"decline", w:"decline", p:"/dɪˈklaɪn/", m:"下降；减少；拒绝", e:"The chart shows a decline in birth rates.", tag:"小作文高频" },
+      { id:"define", w:"define", p:"/dɪˈfaɪn/", m:"定义；明确", e:"It is difficult to define success.", tag:"写作阅读" },
+      { id:"demonstrate", w:"demonstrate", p:"/ˈdemənstreɪt/", m:"证明；展示", e:"The results demonstrate the importance of practice.", tag:"写作高频" },
+      { id:"derive", w:"derive", p:"/dɪˈraɪv/", m:"获得；源于", e:"Many English words derive from Latin.", tag:"阅读高频" },
+      { id:"detect", w:"detect", p:"/dɪˈtekt/", m:"发现；察觉", e:"Modern technology can detect small changes.", tag:"阅读高频" },
+      { id:"deteriorate", w:"deteriorate", p:"/dɪˈtɪriəreɪt/", m:"恶化；变坏", e:"Air quality may deteriorate in large cities.", tag:"高阶写作" },
+      { id:"device", w:"device", p:"/dɪˈvaɪs/", m:"设备；装置", e:"Mobile devices are widely used in education.", tag:"基础高频" },
+      { id:"dimension", w:"dimension", p:"/daɪˈmenʃn/", m:"方面；维度；尺寸", e:"The problem has an economic dimension.", tag:"阅读高频" },
+      { id:"display", w:"display", p:"/dɪˈspleɪ/", m:"展示；显示", e:"The museum displays historical objects.", tag:"听力阅读" },
+      { id:"domestic", w:"domestic", p:"/dəˈmestɪk/", m:"国内的；家庭的", e:"Domestic tourism has increased recently.", tag:"阅读写作" },
+      { id:"dominant", w:"dominant", p:"/ˈdɑːmɪnənt/", m:"占主导地位的", e:"English has become a dominant global language.", tag:"高频写作" },
+      { id:"economy", w:"economy", p:"/ɪˈkɑːnəmi/", m:"经济", e:"Tourism can benefit the local economy.", tag:"写作高频" },
+      { id:"efficient", w:"efficient", p:"/ɪˈfɪʃnt/", m:"高效的", e:"Public transport should be efficient and affordable.", tag:"写作高频" },
+      { id:"element", w:"element", p:"/ˈelɪmənt/", m:"元素；要素", e:"Trust is an essential element of cooperation.", tag:"阅读写作" },
+      { id:"eliminate", w:"eliminate", p:"/ɪˈlɪmɪneɪt/", m:"消除；淘汰", e:"Education can help eliminate poverty.", tag:"写作高频" },
+      { id:"emerge", w:"emerge", p:"/ɪˈmɜːrdʒ/", m:"出现；浮现", e:"New problems may emerge as cities grow.", tag:"阅读高频" },
+      { id:"emphasis", w:"emphasis", p:"/ˈemfəsɪs/", m:"强调；重点", e:"Schools should place more emphasis on creativity.", tag:"写作高频" },
+      { id:"enable", w:"enable", p:"/ɪˈneɪbl/", m:"使能够", e:"Technology enables people to learn anywhere.", tag:"写作高频" },
+      { id:"enhance", w:"enhance", p:"/ɪnˈhæns/", m:"提高；增强", e:"Regular reading can enhance vocabulary.", tag:"写作高频" },
+      { id:"environment", w:"environment", p:"/ɪnˈvaɪrənmənt/", m:"环境", e:"Protecting the environment is a global responsibility.", tag:"写作高频" },
+      { id:"equivalent", w:"equivalent", p:"/ɪˈkwɪvələnt/", m:"相等的；等同物", e:"The qualification is equivalent to a college degree.", tag:"阅读高频" },
+      { id:"establish", w:"establish", p:"/ɪˈstæblɪʃ/", m:"建立；确立", e:"The government established new rules.", tag:"写作阅读" },
+      { id:"evaluate", w:"evaluate", p:"/ɪˈvæljueɪt/", m:"评价；评估", e:"Students should evaluate different opinions.", tag:"雅思高频" },
+      { id:"evidence", w:"evidence", p:"/ˈevɪdəns/", m:"证据", e:"Strong evidence is needed to support an argument.", tag:"写作核心" },
+      { id:"evolve", w:"evolve", p:"/ɪˈvɑːlv/", m:"进化；逐渐发展", e:"Language continues to evolve over time.", tag:"阅读高频" },
+      { id:"exclude", w:"exclude", p:"/ɪkˈskluːd/", m:"排除；不包括", e:"The survey excluded people under 18.", tag:"阅读高频" },
+      { id:"expand", w:"expand", p:"/ɪkˈspænd/", m:"扩大；扩展", e:"Cities expand as populations grow.", tag:"写作高频" },
+      { id:"expertise", w:"expertise", p:"/ˌekspɜːrˈtiːz/", m:"专业知识；专长", e:"Experts with medical expertise are needed.", tag:"高阶词" },
+      { id:"explicit", w:"explicit", p:"/ɪkˈsplɪsɪt/", m:"明确的；清楚的", e:"The instructions should be explicit.", tag:"阅读写作" },
+      { id:"export", w:"export", p:"/ˈekspɔːrt/", m:"出口；输出", e:"The country exports agricultural products.", tag:"听力阅读" },
+      { id:"factor", w:"factor", p:"/ˈfæktər/", m:"因素", e:"Cost is an important factor in decision-making.", tag:"写作高频" },
+      { id:"feature", w:"feature", p:"/ˈfiːtʃər/", m:"特征；特点", e:"One feature of modern cities is high population density.", tag:"阅读写作" },
+      { id:"flexible", w:"flexible", p:"/ˈfleksəbl/", m:"灵活的", e:"Flexible working hours can improve job satisfaction.", tag:"写作高频" },
+      { id:"fluctuate", w:"fluctuate", p:"/ˈflʌktʃueɪt/", m:"波动", e:"The number of visitors fluctuated throughout the year.", tag:"小作文高频" },
+      { id:"focus", w:"focus", p:"/ˈfoʊkəs/", m:"焦点；专注", e:"Learners should focus on common academic vocabulary.", tag:"核心词" },
+      { id:"function", w:"function", p:"/ˈfʌŋkʃn/", m:"功能；起作用", e:"The main function of the library is to provide information.", tag:"阅读高频" },
+      { id:"generate", w:"generate", p:"/ˈdʒenəreɪt/", m:"产生；生成", e:"Renewable energy can generate electricity.", tag:"写作高频" },
+      { id:"global", w:"global", p:"/ˈɡloʊbl/", m:"全球的", e:"Climate change is a global challenge.", tag:"写作高频" },
+      { id:"gradual", w:"gradual", p:"/ˈɡrædʒuəl/", m:"逐渐的", e:"There was a gradual increase in online shopping.", tag:"小作文高频" },
+      { id:"guarantee", w:"guarantee", p:"/ˌɡærənˈtiː/", m:"保证；担保", e:"Money does not guarantee happiness.", tag:"写作高频" },
+      { id:"highlight", w:"highlight", p:"/ˈhaɪlaɪt/", m:"强调；突出", e:"The report highlights the need for reform.", tag:"阅读写作" },
+      { id:"identify", w:"identify", p:"/aɪˈdentɪfaɪ/", m:"识别；确认", e:"The study identifies several causes of stress.", tag:"阅读高频" },
+      { id:"impact", w:"impact", p:"/ˈɪmpækt/", m:"影响；冲击", e:"Technology has a major impact on communication.", tag:"写作高频" },
+      { id:"implement", w:"implement", p:"/ˈɪmplɪment/", m:"实施；执行", e:"The policy was implemented last year.", tag:"写作阅读" },
+      { id:"imply", w:"imply", p:"/ɪmˈplaɪ/", m:"暗示；意味着", e:"The results imply that sleep affects learning.", tag:"阅读高频" },
+      { id:"income", w:"income", p:"/ˈɪnkʌm/", m:"收入", e:"Income levels vary between regions.", tag:"听力阅读" },
+      { id:"indicate", w:"indicate", p:"/ˈɪndɪkeɪt/", m:"表明；显示", e:"The figures indicate a sharp rise in demand.", tag:"小作文高频" },
+      { id:"individual", w:"individual", p:"/ˌɪndɪˈvɪdʒuəl/", m:"个人；个体的", e:"Individuals should also protect the environment.", tag:"写作高频" },
+      { id:"inevitable", w:"inevitable", p:"/ɪnˈevɪtəbl/", m:"不可避免的", e:"Change is inevitable in modern society.", tag:"写作高频" },
+      { id:"influence", w:"influence", p:"/ˈɪnfluəns/", m:"影响", e:"Parents have a strong influence on children.", tag:"写作口语" },
+      { id:"infrastructure", w:"infrastructure", p:"/ˈɪnfrəstrʌktʃər/", m:"基础设施", e:"Good infrastructure is essential for economic growth.", tag:"写作高频" },
+      { id:"initial", w:"initial", p:"/ɪˈnɪʃl/", m:"最初的；初始的", e:"The initial cost may be high.", tag:"阅读高频" },
+      { id:"innovation", w:"innovation", p:"/ˌɪnəˈveɪʃn/", m:"创新", e:"Innovation can improve productivity.", tag:"写作高频" },
+      { id:"instance", w:"instance", p:"/ˈɪnstəns/", m:"例子；情况", e:"For instance, many people now study online.", tag:"写作连接" },
+      { id:"integrate", w:"integrate", p:"/ˈɪntɪɡreɪt/", m:"整合；融入", e:"Technology should be integrated into education.", tag:"高频写作" },
+      { id:"interpret", w:"interpret", p:"/ɪnˈtɜːrprət/", m:"解释；理解", e:"Students need to interpret data in charts.", tag:"小作文" },
+      { id:"invest", w:"invest", p:"/ɪnˈvest/", m:"投资；投入", e:"Governments should invest in public services.", tag:"写作高频" },
+      { id:"involve", w:"involve", p:"/ɪnˈvɑːlv/", m:"涉及；包含", e:"The project involves several stages.", tag:"阅读高频" },
+      { id:"issue", w:"issue", p:"/ˈɪʃuː/", m:"问题；议题", e:"Pollution is a serious issue in many cities.", tag:"写作高频" },
+      { id:"justify", w:"justify", p:"/ˈdʒʌstɪfaɪ/", m:"证明……合理；为……辩护", e:"It is hard to justify spending so much money.", tag:"高阶写作" },
+      { id:"labour", w:"labour", p:"/ˈleɪbər/", m:"劳动；劳动力", e:"The demand for skilled labour is increasing.", tag:"阅读写作" },
+      { id:"legal", w:"legal", p:"/ˈliːɡl/", m:"法律的；合法的", e:"There are legal limits on advertising.", tag:"写作阅读" },
+      { id:"major", w:"major", p:"/ˈmeɪdʒər/", m:"主要的；重大的", e:"Traffic congestion is a major problem.", tag:"基础高频" },
+      { id:"maintain", w:"maintain", p:"/meɪnˈteɪn/", m:"保持；维持", e:"It is important to maintain a healthy lifestyle.", tag:"写作高频" },
+      { id:"method", w:"method", p:"/ˈmeθəd/", m:"方法", e:"This method can improve vocabulary memory.", tag:"基础高频" },
+      { id:"modify", w:"modify", p:"/ˈmɑːdɪfaɪ/", m:"修改；调整", e:"The plan was modified after discussion.", tag:"阅读高频" },
+      { id:"monitor", w:"monitor", p:"/ˈmɑːnɪtər/", m:"监测；跟踪", e:"Researchers monitor changes in temperature.", tag:"阅读高频" },
+      { id:"network", w:"network", p:"/ˈnetwɜːrk/", m:"网络；关系网", e:"Social networks affect how people communicate.", tag:"写作高频" },
+      { id:"obtain", w:"obtain", p:"/əbˈteɪn/", m:"获得", e:"Students can obtain information from the internet.", tag:"阅读高频" },
+      { id:"obvious", w:"obvious", p:"/ˈɑːbviəs/", m:"明显的", e:"The benefits are obvious.", tag:"基础高频" },
+      { id:"occupy", w:"occupy", p:"/ˈɑːkjupaɪ/", m:"占据；占用", e:"Cars occupy a large amount of urban space.", tag:"写作阅读" },
+      { id:"occur", w:"occur", p:"/əˈkɜːr/", m:"发生；出现", e:"Mistakes occur when people are tired.", tag:"阅读高频" },
+      { id:"objective", w:"objective", p:"/əbˈdʒektɪv/", m:"客观的；目标", e:"An objective view is needed in academic writing.", tag:"写作高频" },
+      { id:"obstacle", w:"obstacle", p:"/ˈɑːbstəkl/", m:"障碍", e:"Lack of time is a common obstacle.", tag:"写作口语" },
+      { id:"option", w:"option", p:"/ˈɑːpʃn/", m:"选择；选项", e:"Online study is a convenient option.", tag:"基础高频" },
+      { id:"overall", w:"overall", p:"/ˌoʊvərˈɔːl/", m:"总体的；总的来说", e:"Overall, the number of tourists increased.", tag:"小作文高频" },
+      { id:"participate", w:"participate", p:"/pɑːrˈtɪsɪpeɪt/", m:"参与", e:"Students should participate in class discussions.", tag:"写作口语" },
+      { id:"perceive", w:"perceive", p:"/pərˈsiːv/", m:"认为；感知", e:"People may perceive the same situation differently.", tag:"阅读高阶" },
+      { id:"period", w:"period", p:"/ˈpɪriəd/", m:"时期；一段时间", e:"The figure rose over a ten-year period.", tag:"小作文" },
+      { id:"policy", w:"policy", p:"/ˈpɑːləsi/", m:"政策", e:"The policy aims to reduce pollution.", tag:"写作高频" },
+      { id:"potential", w:"potential", p:"/pəˈtenʃl/", m:"潜在的；潜力", e:"Online education has great potential.", tag:"写作高频" },
+      { id:"previous", w:"previous", p:"/ˈpriːviəs/", m:"以前的", e:"The current result is better than the previous one.", tag:"阅读高频" },
+      { id:"primary", w:"primary", p:"/ˈpraɪmeri/", m:"主要的；初级的", e:"The primary reason is the high cost.", tag:"写作高频" },
+      { id:"principle", w:"principle", p:"/ˈprɪnsəpl/", m:"原则", e:"Fairness is an important principle.", tag:"写作高频" },
+      { id:"priority", w:"priority", p:"/praɪˈɔːrəti/", m:"优先事项", e:"Education should be a national priority.", tag:"写作高频" },
+      { id:"process", w:"process", p:"/ˈprɑːses/", m:"过程；处理", e:"Learning a language is a long process.", tag:"基础高频" },
+      { id:"proportion", w:"proportion", p:"/prəˈpɔːrʃn/", m:"比例；部分", e:"A large proportion of students use mobile apps.", tag:"小作文高频" },
+      { id:"purchase", w:"purchase", p:"/ˈpɜːrtʃəs/", m:"购买", e:"Consumers often purchase goods online.", tag:"听力阅读" },
+      { id:"range", w:"range", p:"/reɪndʒ/", m:"范围；一系列", e:"The course covers a wide range of topics.", tag:"阅读高频" },
+      { id:"rapid", w:"rapid", p:"/ˈræpɪd/", m:"快速的", e:"Rapid urban growth creates pressure on services.", tag:"写作高频" },
+      { id:"ratio", w:"ratio", p:"/ˈreɪʃioʊ/", m:"比例；比率", e:"The ratio of men to women changed.", tag:"小作文" },
+      { id:"reduce", w:"reduce", p:"/rɪˈduːs/", m:"减少", e:"Public transport can reduce traffic congestion.", tag:"写作高频" },
+      { id:"relevant", w:"relevant", p:"/ˈreləvənt/", m:"相关的", e:"Use relevant examples in your essay.", tag:"写作核心" },
+      { id:"reliable", w:"reliable", p:"/rɪˈlaɪəbl/", m:"可靠的", e:"Reliable sources are important in research.", tag:"阅读写作" },
+      { id:"require", w:"require", p:"/rɪˈkwaɪər/", m:"需要；要求", e:"Success requires patience and practice.", tag:"基础高频" },
+      { id:"resident", w:"resident", p:"/ˈrezɪdənt/", m:"居民", e:"Local residents complained about the noise.", tag:"听力阅读" },
+      { id:"resource", w:"resource", p:"/ˈriːsɔːrs/", m:"资源", e:"Water is an important natural resource.", tag:"写作高频" },
+      { id:"respond", w:"respond", p:"/rɪˈspɑːnd/", m:"回应；反应", e:"Governments must respond to public concerns.", tag:"写作阅读" },
+      { id:"restrict", w:"restrict", p:"/rɪˈstrɪkt/", m:"限制", e:"Some cities restrict car use in the centre.", tag:"写作高频" },
+      { id:"retain", w:"retain", p:"/rɪˈteɪn/", m:"保留；保持", e:"Regular review helps learners retain vocabulary.", tag:"学习高频" },
+      { id:"reveal", w:"reveal", p:"/rɪˈviːl/", m:"揭示；显示", e:"The survey revealed a change in public opinion.", tag:"阅读高频" },
+      { id:"role", w:"role", p:"/roʊl/", m:"角色；作用", e:"Parents play an important role in education.", tag:"写作高频" },
+      { id:"significant", w:"significant", p:"/sɪɡˈnɪfɪkənt/", m:"重要的；显著的", e:"There was a significant increase in online learning.", tag:"小作文高频" },
+      { id:"similar", w:"similar", p:"/ˈsɪmələr/", m:"相似的", e:"The two methods are similar in many ways.", tag:"基础高频" },
+      { id:"source", w:"source", p:"/sɔːrs/", m:"来源", e:"Books are still an important source of knowledge.", tag:"阅读写作" },
+      { id:"specific", w:"specific", p:"/spəˈsɪfɪk/", m:"具体的；特定的", e:"Give specific examples to support your answer.", tag:"写作核心" },
+      { id:"strategy", w:"strategy", p:"/ˈstrætədʒi/", m:"策略", e:"A good strategy can improve exam performance.", tag:"雅思高频" },
+      { id:"structure", w:"structure", p:"/ˈstrʌktʃər/", m:"结构", e:"Essay structure is important in IELTS writing.", tag:"写作核心" },
+      { id:"substitute", w:"substitute", p:"/ˈsʌbstɪtuːt/", m:"替代品；代替", e:"There is no substitute for regular practice.", tag:"高频表达" },
+      { id:"sufficient", w:"sufficient", p:"/səˈfɪʃnt/", m:"足够的", e:"Students need sufficient time to prepare.", tag:"写作高频" },
+      { id:"sustain", w:"sustain", p:"/səˈsteɪn/", m:"维持；支撑", e:"It is difficult to sustain motivation for months.", tag:"写作高频" },
+      { id:"symbol", w:"symbol", p:"/ˈsɪmbl/", m:"象征；符号", e:"The building became a symbol of the city.", tag:"阅读常见" },
+      { id:"technique", w:"technique", p:"/tekˈniːk/", m:"技巧；技术", e:"This technique helps students remember words.", tag:"学习高频" },
+      { id:"temporary", w:"temporary", p:"/ˈtempəreri/", m:"临时的；暂时的", e:"The problem may only be temporary.", tag:"阅读高频" },
+      { id:"theory", w:"theory", p:"/ˈθɪri/", m:"理论", e:"The theory explains how memory works.", tag:"阅读高频" },
+      { id:"trend", w:"trend", p:"/trend/", m:"趋势", e:"The chart shows an upward trend.", tag:"小作文高频" },
+      { id:"valid", w:"valid", p:"/ˈvælɪd/", m:"有效的；合理的", e:"That is a valid argument.", tag:"写作高频" },
+      { id:"vary", w:"vary", p:"/ˈveri/", m:"变化；不同", e:"The results vary from country to country.", tag:"小作文高频" },
+      { id:"vehicle", w:"vehicle", p:"/ˈviːəkl/", m:"车辆；工具", e:"Private vehicles cause congestion in cities.", tag:"写作高频" },
+      { id:"welfare", w:"welfare", p:"/ˈwelfer/", m:"福利；幸福", e:"Governments should protect public welfare.", tag:"写作高频" }
     ];
+
+    function getState() {
+      return JSON.parse(localStorage.getItem(APP_KEY) || '{"records":{},"wordStatus":{},"wrong":{}}');
+    }
+
+    function saveState(state) {
+      localStorage.setItem(APP_KEY, JSON.stringify(state));
+    }
+
+    function dateKey(date = new Date()) {
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, "0");
+      const d = String(date.getDate()).padStart(2, "0");
+      return `${y}-${m}-${d}`;
+    }
+
+    function dateText() {
+      const now = new Date();
+      return `${now.getMonth() + 1}月${now.getDate()}日`;
+    }
+
+    function daysBetween(a, b) {
+      const one = new Date(a.getFullYear(), a.getMonth(), a.getDate());
+      const two = new Date(b.getFullYear(), b.getMonth(), b.getDate());
+      return Math.floor((two - one) / 86400000);
+    }
+
+    function getDailyWords() {
+      const base = new Date(2026, 0, 1);
+      const today = new Date();
+      const diff = daysBetween(base, today);
+      const start = ((diff * 20 + wordOffset) % wordBank.length + wordBank.length) % wordBank.length;
+
+      const result = [];
+      for (let i = 0; i < 20; i++) {
+        result.push(wordBank[(start + i) % wordBank.length]);
+      }
+      return result;
+    }
 
     function toast(message) {
       const el = document.getElementById("toast");
@@ -853,385 +979,435 @@
       document.querySelectorAll(".nav-btn").forEach(item => item.classList.remove("active"));
       btn.classList.add("active");
 
-      if (name === "records") {
-        updateSummary();
-        setTimeout(renderCharts, 80);
-      }
-
-      if (name === "study") {
-        renderWords();
-      }
+      if (name === "home") renderHome();
+      if (name === "words") renderWords();
+      if (name === "quiz") renderQuizIntro();
+      if (name === "wrong") renderWrongWords();
     }
 
-    function setChoice(key, value, el) {
-      todayChoice[key] = value;
-      const group = el.parentElement;
-      const chips = group.querySelectorAll(".chip");
-      chips.forEach(chip => chip.classList.remove("active"));
-      el.classList.add("active");
-    }
-
-    function getData() {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-    }
-
-    function saveData(data) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    }
-
-    function getValue(id) {
-      return document.getElementById(id).value.trim();
-    }
-
-    function setValue(id, value) {
-      document.getElementById(id).value = value;
-    }
-
-    function saveRecord() {
-      const studyNote = getValue("studyNote");
-      const investNote = getValue("investNote");
-      const otherNote = getValue("otherNote");
-
-      if (
-        !todayChoice.studyStatus &&
-        !todayChoice.investAction &&
-        !todayChoice.sleep &&
-        !todayChoice.energy &&
-        !todayChoice.mood &&
-        !studyNote &&
-        !investNote &&
-        !otherNote
-      ) {
-        toast("今天还没有选择或填写内容哦");
-        return;
-      }
-
-      const data = getData();
-      const now = new Date();
-
-      const record = {
-        date: now.toLocaleDateString(),
-        dateTime: now.toLocaleString(),
-        studyStatus: todayChoice.studyStatus,
-        investAction: todayChoice.investAction,
-        sleep: todayChoice.sleep,
-        energy: Number(todayChoice.energy) || 0,
-        mood: todayChoice.mood,
-        studyNote,
-        investNote,
-        otherNote
+    function switchTabByName(name) {
+      const map = {
+        home: 0,
+        words: 1,
+        quiz: 2,
+        wrong: 3
       };
-
-      data.push(record);
-      saveData(data);
-      toast("已保存今天记录");
-      updateSummary();
-      renderCharts();
+      const btn = document.querySelectorAll(".nav-btn")[map[name]];
+      switchTab(name, btn);
     }
 
-    function showRecent() {
-      const data = getData();
-      const recent = data.slice(-7).reverse();
-      const output = document.getElementById("output");
-
-      if (!recent.length) {
-        output.innerText = "暂无记录。";
+    function speak(text) {
+      if (!("speechSynthesis" in window)) {
+        toast("当前浏览器不支持朗读");
         return;
       }
 
-      output.innerText = recent.map(item => {
-        return `📅 ${item.dateTime}
-📚 学习：${item.studyStatus || "未填"}${item.studyNote ? "｜" + item.studyNote : ""}
-💰 投资：${item.investAction || "未填"}${item.investNote ? "｜" + item.investNote : ""}
-😴 睡眠：${item.sleep || "未填"} ｜ ⚡精力：${item.energy || "未填"} ｜ 😊心情：${item.mood || "未填"}
-📝 备注：${item.otherNote || "无"}`;
-      }).join("\n\n-----------------------------\n\n");
+      window.speechSynthesis.cancel();
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "en-GB";
+      utterance.rate = 0.82;
+      utterance.pitch = 1.02;
+
+      const voices = window.speechSynthesis.getVoices();
+      const englishVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith("en"));
+      if (englishVoice) utterance.voice = englishVoice;
+
+      window.speechSynthesis.speak(utterance);
     }
 
-    function smartReview() {
-      const data = getData();
-      const output = document.getElementById("output");
-
-      if (!data.length) {
-        output.innerText = "暂无数据，先保存今天记录再复盘。";
-        return;
-      }
-
-      const last = data[data.length - 1];
-      const recent7 = data.slice(-7);
-      const avgEnergy = recent7.reduce((sum, x) => sum + (x.energy || 0), 0) / recent7.length;
-
-      let review = `☀️ 每日决策 · 智能复盘
-
-📅 今日记录：${last.dateTime}
-
-一、今日概况
-- 学习状态：${last.studyStatus || "未填"}
-- 投资操作：${last.investAction || "未填"}
-- 睡眠状态：${last.sleep || "未填"}
-- 精力水平：${last.energy || "未填"}
-- 今日心情：${last.mood || "未填"}
-
-二、系统判断
-`;
-
-      if (last.energy >= 8) {
-        review += "- 你今天整体精力较高，适合处理重点任务，也适合推进学习和复盘。\n";
-      } else if (last.energy >= 5) {
-        review += "- 你今天精力中等，适合稳步推进，不适合塞太多任务。\n";
-      } else {
-        review += "- 你今天精力偏低，优先保状态，重要决策要谨慎。\n";
-      }
-
-      if (last.sleep === "差") {
-        review += "- 睡眠偏差可能会直接影响判断力，今天更容易情绪化或效率打折。\n";
-      }
-
-      if (["买入", "卖出", "加仓", "减仓"].includes(last.investAction) && last.energy <= 4) {
-        review += "- 今天在低精力状态下做了投资动作，建议重点检查是否受情绪影响。\n";
-      } else if (last.investAction === "观望" || last.investAction === "无操作") {
-        review += "- 今天投资上比较克制，这通常有助于减少冲动决策。\n";
-      }
-
-      if (last.studyStatus === "高效完成") {
-        review += "- 今天学习执行不错，说明你的行动力在线。\n";
-      } else if (last.studyStatus === "完成部分") {
-        review += "- 今天学习有推进，保持连续性比一次学很多更重要。\n";
-      } else if (last.studyStatus === "只看没练") {
-        review += "- 今天偏输入，建议明天补一点输出，比如刷题、复盘或总结。\n";
-      } else if (last.studyStatus === "未开始") {
-        review += "- 今天学习未启动，建议明天把门槛压低，只求先开始。\n";
-      }
-
-      review += `\n三、近7条趋势
-- 最近7条平均精力：${avgEnergy.toFixed(1)}
-- 记录条数：${recent7.length}
-`;
-
-      const actionDays = recent7.filter(x => ["买入", "卖出", "加仓", "减仓"].includes(x.investAction)).length;
-
-      if (actionDays >= 4) {
-        review += "- 近期投资动作偏多，建议检查是否存在被消息牵着走、频繁应对市场波动的倾向。\n";
-      } else {
-        review += "- 近期投资节奏整体还算稳定，没有明显过度频繁操作。\n";
-      }
-
-      const studyGoodDays = recent7.filter(x => x.studyStatus === "高效完成" || x.studyStatus === "完成部分").length;
-
-      if (studyGoodDays >= 4) {
-        review += "- 近期学习连续性不错，保持节奏比追求强度更重要。\n";
-      } else {
-        review += "- 近期学习连续性一般，可以把目标设得再小一点，先把节奏稳住。\n";
-      }
-
-      review += `\n四、明日建议
-`;
-
-      if (last.energy <= 4 || last.sleep === "差") {
-        review += "- 明天优先做减法：少看消息，少做高压力决策，先把状态拉回来。\n";
-      } else {
-        review += "- 明天优先做一件最重要的事，不贪多，先拿下一个确定性成果。\n";
-      }
-
-      if (!last.studyStatus || last.studyStatus === "未开始") {
-        review += "- 学习上先完成一个最小动作，例如 10 分钟复习 / 5 道题 / 20 个单词。\n";
-      }
-
-      if (!last.investAction || last.investAction === "观望" || last.investAction === "无操作") {
-        review += "- 投资上继续保持“先判断主线、再考虑位置、最后看是否动作”的节奏。\n";
-      } else {
-        review += "- 投资上建议把今天动作背后的原因写短一点，防止以后自己都忘了为什么买卖。\n";
-      }
-
-      output.innerText = review;
+    function speakWord(id) {
+      const word = wordBank.find(item => item.id === id);
+      if (word) speak(word.w);
     }
 
-    function clearToday() {
-      todayChoice = {
-        studyStatus: "",
-        investAction: "",
-        sleep: "",
-        energy: "",
-        mood: ""
-      };
+    function speakAllToday() {
+      const words = getDailyWords();
+      let index = 0;
 
-      document.querySelectorAll("#tab-home .chip").forEach(chip => chip.classList.remove("active"));
+      function next() {
+        if (index >= words.length) return;
+        speak(words[index].w);
+        index++;
+        setTimeout(next, 1350);
+      }
 
-      setValue("studyNote", "");
-      setValue("investNote", "");
-      setValue("otherNote", "");
-
-      toast("当前输入已清空");
+      next();
     }
 
-    function updateSummary() {
-      const data = getData();
-      const recent7 = data.slice(-7);
-      const avg = recent7.length ? recent7.reduce((sum, x) => sum + (x.energy || 0), 0) / recent7.length : 0;
-      const actions = recent7.filter(x => ["买入", "卖出", "加仓", "减仓"].includes(x.investAction)).length;
+    function markWord(id, status) {
+      const state = getState();
+      const today = dateKey();
 
-      document.getElementById("totalDays").innerText = data.length;
-      document.getElementById("avgEnergy").innerText = avg.toFixed(1);
-      document.getElementById("actionCount").innerText = actions;
-    }
+      if (!state.wordStatus[today]) state.wordStatus[today] = {};
+      state.wordStatus[today][id] = status;
 
-    function renderCharts() {
-      const data = getData();
-      const recent = data.slice(-14);
-
-      const labels = recent.map(item => item.date);
-      const energyData = recent.map(item => item.energy || 0);
-
-      const actionMap = {
-        "无操作": 0,
-        "观望": 0,
-        "买入": 1,
-        "卖出": 1,
-        "加仓": 1,
-        "减仓": 1
-      };
-
-      const actionData = recent.map(item => actionMap[item.investAction] ?? 0);
-
-      if (typeof Chart === "undefined") {
-        return;
-      }
-
-      if (energyChartInstance) {
-        energyChartInstance.destroy();
-      }
-
-      if (actionChartInstance) {
-        actionChartInstance.destroy();
-      }
-
-      energyChartInstance = new Chart(document.getElementById("energyChart"), {
-        type: "line",
-        data: {
-          labels,
-          datasets: [{
-            label: "精力水平",
-            data: energyData,
-            tension: 0.35,
-            fill: true
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: {
-              display: true
-            }
-          },
-          scales: {
-            y: {
-              min: 0,
-              max: 10,
-              ticks: {
-                stepSize: 1
-              }
-            }
-          }
+      if (status === "unknown") {
+        if (!state.wrong[id]) {
+          state.wrong[id] = { count: 0, last: today };
         }
+        state.wrong[id].count += 1;
+        state.wrong[id].last = today;
+      }
+
+      saveState(state);
+      renderWords();
+      renderHome();
+
+      toast(status === "known" ? "已标记为认识" : "已加入错词本");
+    }
+
+    function getTodayCounts() {
+      const state = getState();
+      const today = dateKey();
+      const status = state.wordStatus[today] || {};
+      const daily = getDailyWords().map(w => w.id);
+
+      let known = 0;
+      let unknown = 0;
+
+      daily.forEach(id => {
+        if (status[id] === "known") known++;
+        if (status[id] === "unknown") unknown++;
       });
 
-      actionChartInstance = new Chart(document.getElementById("actionChart"), {
-        type: "bar",
-        data: {
-          labels,
-          datasets: [{
-            label: "是否有投资动作",
-            data: actionData
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: {
-              display: true
-            }
-          },
-          scales: {
-            y: {
-              min: 0,
-              max: 1,
-              ticks: {
-                stepSize: 1
-              }
-            }
-          }
+      return { known, unknown };
+    }
+
+    function completeToday() {
+      const state = getState();
+      const today = dateKey();
+
+      if (!state.records[today]) state.records[today] = {};
+      state.records[today].done = true;
+      state.records[today].time = new Date().toLocaleString();
+
+      saveState(state);
+      renderHome();
+      toast("今日已打卡，婷婷真棒");
+    }
+
+    function resetTodayProgress() {
+      const state = getState();
+      delete state.wordStatus[dateKey()];
+      saveState(state);
+      renderWords();
+      renderHome();
+      toast("今日单词标记已重置");
+    }
+
+    function getStreak() {
+      const state = getState();
+      let count = 0;
+      const today = new Date();
+
+      for (let i = 0; i < 365; i++) {
+        const d = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
+        const key = dateKey(d);
+        if (state.records[key] && state.records[key].done) {
+          count++;
+        } else {
+          break;
         }
-      });
-    }
-
-    function saveMarketNote() {
-      localStorage.setItem(MARKET_NOTE_KEY, document.getElementById("marketNote").value.trim());
-      toast("市场备注已保存");
-    }
-
-    function loadMarketNote() {
-      document.getElementById("marketNote").value = localStorage.getItem(MARKET_NOTE_KEY) || "";
-      toast("已读取市场备注");
-    }
-
-    function todayKey() {
-      return new Date().toLocaleDateString();
-    }
-
-    function getDailyWords() {
-      const base = new Date("2026-01-01T00:00:00");
-      const now = new Date();
-      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      const diff = Math.floor((today - base) / 86400000);
-      const start = ((diff * 10 + wordOffset) % wordBank.length + wordBank.length) % wordBank.length;
-
-      const result = [];
-      for (let i = 0; i < 10; i++) {
-        result.push(wordBank[(start + i) % wordBank.length]);
       }
 
-      return result;
+      return count;
+    }
+
+    function getMessages() {
+      return JSON.parse(localStorage.getItem(MESSAGE_KEY) || JSON.stringify(defaultMessages));
+    }
+
+    function saveMessage() {
+      const input = document.getElementById("newMessage");
+      const text = input.value.trim();
+
+      if (!text) {
+        toast("先写一句留言哦");
+        return;
+      }
+
+      const messages = getMessages();
+      messages.unshift(text);
+      localStorage.setItem(MESSAGE_KEY, JSON.stringify(messages));
+      input.value = "";
+      messageIndex = 0;
+      renderMessage();
+      toast("留言已保存");
+    }
+
+    function nextMessage() {
+      const messages = getMessages();
+      messageIndex = (messageIndex + 1) % messages.length;
+      renderMessage();
+    }
+
+    function renderMessage() {
+      const messages = getMessages();
+      document.getElementById("boyfriendMessage").innerText = messages[messageIndex % messages.length];
+    }
+
+    function renderHome() {
+      const counts = getTodayCounts();
+      const state = getState();
+      const today = dateKey();
+      const done = !!(state.records[today] && state.records[today].done);
+
+      document.getElementById("todayText").innerText = done ? "今日已打卡" : dateText();
+      document.getElementById("todayKnown").innerText = counts.known;
+      document.getElementById("todayUnknown").innerText = counts.unknown;
+      document.getElementById("streakCount").innerText = getStreak();
+
+      const streak = getStreak();
+      const base = encouragements[new Date().getDate() % encouragements.length];
+      const extra = done
+        ? `\n\n今天已经打卡了，婷婷完成得很好。`
+        : streak > 0
+          ? `\n\n已经连续 ${streak} 天啦，今天也轻轻完成就好。`
+          : `\n\n今天可以从第一个词开始，不用急。`;
+
+      document.getElementById("encourageText").innerText = base + extra;
+
+      renderMessage();
+      renderCalendar();
+    }
+
+    function renderCalendar() {
+      const state = getState();
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth();
+
+      document.getElementById("calendarMonth").innerText = `${year}年${month + 1}月`;
+
+      const first = new Date(year, month, 1);
+      const last = new Date(year, month + 1, 0);
+      const startDay = first.getDay();
+      const totalDays = last.getDate();
+
+      const weekNames = ["日", "一", "二", "三", "四", "五", "六"];
+      let html = weekNames.map(w => `<div class="weekday">${w}</div>`).join("");
+
+      for (let i = 0; i < startDay; i++) {
+        html += `<div class="day empty"></div>`;
+      }
+
+      for (let day = 1; day <= totalDays; day++) {
+        const d = new Date(year, month, day);
+        const key = dateKey(d);
+        const isDone = state.records[key] && state.records[key].done;
+        const isToday = key === dateKey();
+
+        html += `<div class="day ${isDone ? "done" : ""} ${isToday ? "today" : ""}">${isDone ? "✓" : day}</div>`;
+      }
+
+      document.getElementById("calendar").innerHTML = html;
     }
 
     function renderWords() {
-      const list = document.getElementById("wordList");
+      const state = getState();
+      const today = dateKey();
+      const status = state.wordStatus[today] || {};
       const words = getDailyWords();
-      document.getElementById("wordDate").innerText = todayKey();
 
-      list.innerHTML = words.map((item, index) => `
-        <div class="word-card">
-          <div class="word-head">
-            <div class="word-main">${index + 1}. ${item.w}</div>
-            <div class="phonetic">${item.p}</div>
+      document.getElementById("wordList").innerHTML = words.map((item, index) => {
+        const s = status[item.id];
+        const statusText = s === "known" ? "已认识" : s === "unknown" ? "待复习" : "未标记";
+
+        return `
+          <div class="word-card">
+            <div class="word-top">
+              <div>
+                <div class="word-main" onclick="speakWord('${item.id}')">${index + 1}. ${item.w}</div>
+                <div class="phonetic">${item.p}</div>
+                <div class="tag">${item.tag} · ${statusText}</div>
+              </div>
+              <button class="mini-btn" onclick="speakWord('${item.id}')">🔊 读一下</button>
+            </div>
+
+            <div class="meaning">${item.m}</div>
+            <div class="example">${item.e}</div>
+
+            <div class="word-actions">
+              <button class="mini-btn" onclick="speakWord('${item.id}')">再听一遍</button>
+              <button class="mini-btn known" onclick="markWord('${item.id}', 'known')">认识</button>
+              <button class="mini-btn unknown" onclick="markWord('${item.id}', 'unknown')">不认识</button>
+            </div>
           </div>
-          <div class="meaning">${item.m}</div>
-          <div class="example">${item.e}</div>
-        </div>
-      `).join("");
-
-      updateWordStatus();
+        `;
+      }).join("");
     }
 
-    function markWordsDone() {
-      const data = JSON.parse(localStorage.getItem(WORD_DONE_KEY) || "{}");
-      data[todayKey()] = true;
-      localStorage.setItem(WORD_DONE_KEY, JSON.stringify(data));
-      updateWordStatus();
-      toast("今日10词已完成");
+    function shuffle(arr) {
+      return arr.map(v => ({ v, r: Math.random() })).sort((a, b) => a.r - b.r).map(x => x.v);
     }
 
-    function updateWordStatus() {
-      const data = JSON.parse(localStorage.getItem(WORD_DONE_KEY) || "{}");
-      document.getElementById("wordStatus").innerText = data[todayKey()] ? "今日已完成10词打卡。" : "今日还未打卡。";
+    function startQuiz() {
+      const daily = shuffle(getDailyWords()).slice(0, 10);
+
+      currentQuiz = daily.map(word => {
+        const wrongOptions = shuffle(wordBank.filter(w => w.id !== word.id)).slice(0, 3).map(w => w.m);
+        const options = shuffle([word.m, ...wrongOptions]);
+        return {
+          word,
+          options,
+          answered: false,
+          correct: false
+        };
+      });
+
+      renderQuiz();
     }
 
-    function shiftWords() {
-      wordOffset += 10;
-      renderWords();
-      toast("已换一组单词");
+    function renderQuizIntro() {
+      if (!currentQuiz.length) {
+        document.getElementById("quizList").innerHTML = "";
+        document.getElementById("quizScore").innerText = "未开始";
+      }
     }
 
-    updateSummary();
+    function renderQuiz() {
+      document.getElementById("quizList").innerHTML = currentQuiz.map((q, qIndex) => {
+        return `
+          <div class="quiz-card">
+            <div class="quiz-word" onclick="speak('${q.word.w}')">${qIndex + 1}. ${q.word.w} 🔊</div>
+            <div class="option-grid">
+              ${q.options.map((op, opIndex) => `
+                <button class="option" data-q="${qIndex}" data-i="${opIndex}">${op}</button>
+              `).join("")}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      document.querySelectorAll(".option").forEach(btn => {
+        btn.addEventListener("click", handleQuizAnswer);
+      });
+
+      updateQuizScore();
+    }
+
+    function handleQuizAnswer(event) {
+      const btn = event.currentTarget;
+      const qIndex = Number(btn.dataset.q);
+      const i = Number(btn.dataset.i);
+      const q = currentQuiz[qIndex];
+
+      if (q.answered) return;
+
+      q.answered = true;
+      const chosen = q.options[i];
+      const correct = chosen === q.word.m;
+      q.correct = correct;
+
+      const optionButtons = btn.parentElement.querySelectorAll(".option");
+      optionButtons.forEach(item => {
+        const text = item.innerText;
+        if (text === q.word.m) item.classList.add("correct");
+      });
+
+      if (!correct) {
+        btn.classList.add("wrong");
+        addWrong(q.word.id);
+        toast("选错啦，已加入错词本");
+      } else {
+        toast("答对啦");
+      }
+
+      updateQuizScore();
+    }
+
+    function updateQuizScore() {
+      if (!currentQuiz.length) {
+        document.getElementById("quizScore").innerText = "未开始";
+        return;
+      }
+
+      const answered = currentQuiz.filter(q => q.answered).length;
+      const correct = currentQuiz.filter(q => q.correct).length;
+      document.getElementById("quizScore").innerText = `${correct}/${answered || 0}`;
+    }
+
+    function addWrong(id) {
+      const state = getState();
+      const today = dateKey();
+
+      if (!state.wrong[id]) {
+        state.wrong[id] = { count: 0, last: today };
+      }
+
+      state.wrong[id].count += 1;
+      state.wrong[id].last = today;
+
+      saveState(state);
+    }
+
+    function renderWrongWords() {
+      const state = getState();
+      const ids = Object.keys(state.wrong || {});
+      document.getElementById("wrongCount").innerText = `${ids.length}个`;
+
+      if (!ids.length) {
+        document.getElementById("wrongList").innerHTML = `
+          <div class="wrong-empty">
+            现在还没有错词。很棒！<br>
+            “不认识”的词和测验错词会自动出现在这里。
+          </div>
+        `;
+        return;
+      }
+
+      const html = ids.map(id => {
+        const word = wordBank.find(w => w.id === id);
+        if (!word) return "";
+
+        const info = state.wrong[id];
+
+        return `
+          <div class="word-card">
+            <div class="word-top">
+              <div>
+                <div class="word-main" onclick="speakWord('${word.id}')">${word.w}</div>
+                <div class="phonetic">${word.p}</div>
+                <div class="tag">错词次数：${info.count} · 最近：${info.last}</div>
+              </div>
+              <button class="mini-btn" onclick="speakWord('${word.id}')">🔊 读一下</button>
+            </div>
+            <div class="meaning">${word.m}</div>
+            <div class="example">${word.e}</div>
+            <div class="word-actions">
+              <button class="mini-btn" onclick="speakWord('${word.id}')">再听一遍</button>
+              <button class="mini-btn known" onclick="removeWrong('${word.id}')">我会了</button>
+              <button class="mini-btn unknown" onclick="addWrong('${word.id}'); renderWrongWords();">再记一次</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      document.getElementById("wrongList").innerHTML = html;
+    }
+
+    function removeWrong(id) {
+      const state = getState();
+      delete state.wrong[id];
+      saveState(state);
+      renderWrongWords();
+      toast("已从错词本移除");
+    }
+
+    function clearWrongWords() {
+      if (!confirm("确定清空错词本吗？")) return;
+
+      const state = getState();
+      state.wrong = {};
+      saveState(state);
+      renderWrongWords();
+      toast("错词本已清空");
+    }
+
+    window.speechSynthesis && window.speechSynthesis.getVoices();
+
+    renderHome();
     renderWords();
   </script>
 </body>
